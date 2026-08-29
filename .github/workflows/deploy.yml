@@ -1,0 +1,57 @@
+name: Deploy Home Assistant
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: homeassistant-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy-pi:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - name: Pull latest configuration
+        working-directory: /home/cassandrameijers/homeassistant
+        run: |
+          set -euo pipefail
+          git pull --ff-only
+
+      - name: Pull the Home Assistant image
+        working-directory: /home/cassandrameijers/homeassistant
+        run: |
+          set -euo pipefail
+          docker compose config --quiet
+          docker compose pull
+
+      - name: Validate Home Assistant configuration
+        working-directory: /home/cassandrameijers/homeassistant
+        run: |
+          set -euo pipefail
+          docker compose run --rm --entrypoint hass homeassistant --script check_config --config /config
+
+      - name: Restart Home Assistant
+        working-directory: /home/cassandrameijers/homeassistant
+        run: |
+          set -euo pipefail
+          docker compose up -d --force-recreate --no-build
+
+          for attempt in {1..30}; do
+            status="$(docker inspect --format '{{.State.Status}}' homeassistant 2>/dev/null || true)"
+            if [ "$status" = "running" ]; then
+              if docker exec homeassistant python3 -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8123/', timeout=5)" >/dev/null 2>&1; then
+                docker compose ps
+                exit 0
+              fi
+            fi
+            sleep 2
+          done
+
+          docker compose ps
+          exit 1
