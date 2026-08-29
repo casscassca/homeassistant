@@ -33,6 +33,18 @@ rest_command:
       x-webhook-secret: "{{ secret }}"
     content_type: "application/json"
     payload: '{"action": "{{ action }}"}'
+  petlibro_cleaning_reset:
+    url: "https://api.us.petlibro.com/device/device/machineCleaningReset"
+    method: POST
+    headers:
+      token: !secret petlibro_api_token
+      source: "ANDROID"
+      language: "EN"
+      timezone: "America/Chicago"
+      version: "1.3.45"
+      Content-Type: "application/json"
+    payload: >-
+      {"deviceSn":"{{ device_sn }}","requestId":"{{ request_id }}","timeout":5000}
 
 logger:
   default: warning

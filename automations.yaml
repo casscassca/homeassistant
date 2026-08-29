@@ -234,3 +234,23 @@
       title: Front Door - {{ trigger.to_state.name }}
   max_exceeded: silent
   mode: single
+- id: petlibro_cleaning_reset_after_sweepy
+  alias: Reset Petlibro cleaning state after Clean setup
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: sensor.juicebox_sweepy_clean_setup_last_done
+  conditions:
+  - condition: template
+    value_template: >-
+      {{ trigger.from_state is not none
+         and trigger.to_state is not none
+         and trigger.from_state.state not in ['unknown', 'unavailable']
+         and trigger.to_state.state not in ['unknown', 'unavailable']
+         and trigger.from_state.state != trigger.to_state.state }}
+  actions:
+  - action: rest_command.petlibro_cleaning_reset
+    data:
+      device_sn: !secret petlibro_wet_food_device_sn
+      request_id: "{{ context.id | replace('-', '') }}"
+  mode: single
