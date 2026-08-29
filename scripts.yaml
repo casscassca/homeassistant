@@ -1,0 +1,80 @@
+good_morning_blinds:
+  alias: Good Morning Blinds
+  description: ''
+  icon: mdi:sun-wireless-outline
+  sequence:
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.main_upper_center
+      - cover.main_upper_left
+      - cover.main_upper_right
+    data:
+      position: 100
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.main_side_top
+    data:
+      position: 40
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.main_side_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.dining_top
+    data:
+      position: 40
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.dining_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.front_office_top
+    data:
+      position: 40
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.front_office_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.upper_center
+      - cover.upper_left
+      - cover.upper_right
+    data:
+      position: 100
+  - delay: 00:00:02
+  - condition: state
+    entity_id: input_boolean.guests_over
+    state: 'off'
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.big_top
+      - cover.cass_office_left_top
+      - cover.cass_office_right_top
+    data:
+      position: 40
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.big_bottom
+      - cover.cass_office_left_bottom
+      - cover.cass_office_right_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.wide
+    data:
+      position: 100

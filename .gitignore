@@ -1,0 +1,29 @@
+# Home Assistant secrets and credentials
+secrets.yaml
+secrets.yml
+/SERVICE_ACCOUNT.JSON
+/service_account.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.token
+
+# Runtime state and generated data
+.storage/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+home-assistant.log*
+OZW_Log.txt
+deps/
+tts/
+backup/
+backups/
+www/snapshots/
+
+# Local and editor files
+.DS_Store
+*.swp

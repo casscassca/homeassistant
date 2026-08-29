@@ -1,0 +1,236 @@
+- actions:
+  - action: notify.send_message
+    data:
+      message: Someone was seen on the backyard camera
+      title: Person Spotted - Backyard
+    target:
+      entity_id:
+      - notify.pixel
+      - notify.jason_s_iphone
+  alias: Nest Backyard - Person Detected
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
+      }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.cass
+      state: home
+    - condition: state
+      entity_id: person.jason
+      state: home
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  description: ''
+  id: '1782569285600'
+  mode: single
+  triggers:
+  - event_data:
+      entity_id: event.backyard_camera_motion
+    event_type: state_changed
+    trigger: event
+- actions:
+  - action: notify.send_message
+    data:
+      message: Someone was seen on the driveway camera
+      title: Person Spotted - Driveway
+    target:
+      entity_id:
+      - notify.pixel
+      - notify.jason_s_iphone
+  alias: Nest Driveway - Person Detected
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
+      }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.cass
+      state: home
+    - condition: state
+      entity_id: person.jason
+      state: home
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  description: ''
+  id: '1782569302342'
+  mode: single
+  triggers:
+  - event_data:
+      entity_id: event.driveway_motion
+    event_type: state_changed
+    trigger: event
+- actions:
+  - action: notify.send_message
+    data:
+      message: Someone was seen on the front yard camera
+      title: Person Spotted - Front Yard
+    target:
+      entity_id:
+      - notify.pixel
+      - notify.jason_s_iphone
+  alias: Nest Frontyard - Person Detected
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
+      }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.cass
+      state: home
+    - condition: state
+      entity_id: person.jason
+      state: home
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  description: ''
+  id: '1782569371087'
+  mode: single
+  triggers:
+  - event_data:
+      entity_id: event.front_yard_camera_motion
+    event_type: state_changed
+    trigger: event
+- actions:
+  - action: notify.send_message
+    data:
+      message: Someone was seen at the gate & bins camera
+      title: Person Spotted - Gate & Bins
+    target:
+      entity_id:
+      - notify.pixel
+      - notify.jason_s_iphone
+  alias: Nest Gate & Bins - Person Detected
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
+      }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.cass
+      state: home
+    - condition: state
+      entity_id: person.jason
+      state: home
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  description: ''
+  id: '1782569824728'
+  mode: single
+  triggers:
+  - event_data:
+      entity_id: event.gate_bins_motion
+    event_type: state_changed
+    trigger: event
+- actions:
+  - action: notify.send_message
+    data:
+      message: Someone was seen on the patio camera
+      title: Person Spotted - Patio
+    target:
+      entity_id:
+      - notify.pixel
+      - notify.jason_s_iphone
+  alias: Nest Patio - Person Detected
+  conditions:
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
+      }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: person.cass
+      state: home
+    - condition: state
+      entity_id: person.jason
+      state: home
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  description: ''
+  id: '1782569851032'
+  mode: single
+  triggers:
+  - event_data:
+      entity_id: event.patio_camera_motion
+    event_type: state_changed
+    trigger: event
+- actions:
+  - action: light.toggle
+    target:
+      entity_id: light.cass_bedside
+  alias: Cass Bedside Button - Light Toggle
+  conditions: []
+  description: ''
+  id: cass_bedside_button_light
+  mode: single
+  triggers:
+  - entity_id: sensor.cass_bedside_button_action
+    to: single
+    trigger: state
+- actions:
+  - action: light.toggle
+    target:
+      entity_id: light.jason_s_bedside
+  alias: Jason Bedside Button - Light Toggle
+  conditions: []
+  description: ''
+  id: jason_bedside_button_light
+  mode: single
+  triggers:
+  - entity_id: sensor.jason_bedside_button_action
+    to: single
+    trigger: state
+- id: reolink_front_door_activity
+  alias: Reolink Front Door - Activity Detected
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.front_door_person
+    - binary_sensor.front_door_vehicle
+    - binary_sensor.front_door_visitor
+    - binary_sensor.front_door_pet
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.front_door_contact.last_changed))
+      > 30 }}'
+  - condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.cover.ratgdo_door.last_changed))
+      > 120 }}'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
+  actions:
+  - action: camera.snapshot
+    data:
+      filename: /config/www/snapshots/front_door_latest.jpg
+    target:
+      entity_id: camera.front_door_snapshots_fluent
+  - delay:
+      seconds: 2
+  - action: notify.mobile_app_pixel
+    data:
+      data:
+        clickAction: /front-yard-view/default_view
+        image: /local/snapshots/front_door_latest.jpg
+      message: Detected at the front door.
+      title: Front Door - {{ trigger.to_state.name }}
+  - action: notify.mobile_app_jason_s_iphone
+    data:
+      data:
+        image: https://home.jassie.us/local/snapshots/front_door_latest.jpg
+        url: https://home.jassie.us/front-yard-view/default_view
+      message: Detected at the front door.
+      title: Front Door - {{ trigger.to_state.name }}
+  max_exceeded: silent
+  mode: single

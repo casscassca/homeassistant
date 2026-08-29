@@ -1,0 +1,40 @@
+
+homeassistant:
+  external_url: "https://home.jassie.us"
+  internal_url: "http://192.168.4.58:8123"
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+
+google_assistant:
+  project_id: he-voice-06a10
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: true
+  expose_by_default: true
+
+rest_command:
+  sweepy_webhook:
+    url: "https://sweepy.jassie.us/api/ha-webhook"
+    method: POST
+    headers:
+      x-webhook-secret: "{{ secret }}"
+    content_type: "application/json"
+    payload: '{"action": "{{ action }}"}'
+
+logger:
+  default: warning
+  logs:
+    custom_components.petlibro: debug
