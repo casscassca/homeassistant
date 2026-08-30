@@ -321,3 +321,14 @@
           Login returned HTTP {{ petlibro_login_status }}
           with API code {{ petlibro_login_code }}.
   mode: single
+- id: google_assistant_sync_on_start
+  alias: Sync Google Assistant after Home Assistant starts
+  description: ''
+  triggers:
+  - trigger: homeassistant
+    event: start
+  actions:
+  - delay: 00:00:45
+  - action: google_assistant.request_sync
+    continue_on_error: true
+  mode: single
