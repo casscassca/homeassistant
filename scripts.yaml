@@ -79,6 +79,57 @@ good_morning_blinds:
     data:
       position: 100
 
+good_night_blinds:
+  alias: Good Night Blinds
+  description: ''
+  icon: mdi:weather-night
+  sequence:
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.main_upper_center
+      - cover.main_upper_left
+      - cover.main_upper_right
+      - cover.main_side_top
+      - cover.main_side_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.dining_top
+      - cover.dining_bottom
+      - cover.front_office_top
+      - cover.front_office_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.upper_center
+      - cover.upper_left
+      - cover.upper_right
+      - cover.wide
+      - cover.big_top
+      - cover.big_bottom
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.cass_office_left_top
+      - cover.cass_office_left_bottom
+      - cover.cass_office_right_top
+      - cover.cass_office_right_bottom
+      - cover.right_top
+      - cover.right_bottom
+      - cover.top
+    data:
+      position: 0
+
 notify_security_snapshot:
   alias: Notify security snapshot
   description: ''
