@@ -254,21 +254,28 @@
       device_sn: "{{ states('input_text.petlibro_wet_food_device_sn') }}"
       request_id: "{{ context.id | replace('-', '') }}"
     response_variable: petlibro_response
+  - variables:
+      petlibro_api_status: "{{ petlibro_response.status | default('unknown') }}"
+      petlibro_api_code: "{{ petlibro_response.content.code | default('not returned') }}"
   - choose:
     - conditions:
       - condition: template
         value_template: >-
-          {{ petlibro_response.status >= 200 and petlibro_response.status < 300 }}
+          {{ petlibro_api_status | int(0) >= 200
+             and petlibro_api_status | int(0) < 300
+             and petlibro_api_code == '0' }}
       sequence:
       - action: logbook.log
         data:
           name: Petlibro cleaning reset
           message: >-
-            API reset returned HTTP {{ petlibro_response.status }}.
+            API reset returned HTTP {{ petlibro_api_status }}
+            with API code {{ petlibro_api_code }}.
     default:
     - action: persistent_notification.create
       data:
         title: Petlibro cleaning reset failed
         message: >-
-          API reset returned HTTP {{ petlibro_response.status | default('unknown') }}.
+          API reset returned HTTP {{ petlibro_api_status }}
+          with API code {{ petlibro_api_code }}.
   mode: single
