@@ -1,12 +1,11 @@
 - actions:
-  - action: notify.send_message
+  - action: script.notify_security_snapshot
     data:
-      message: Someone was seen on the backyard camera
+      camera_id: camera.backyard_camera
+      snapshot_prefix: backyard
       title: Person Spotted - Backyard
-    target:
-      entity_id:
-      - notify.pixel
-      - notify.jason_s_iphone
+      message: Someone was seen on the backyard camera
+      view_path: /
   alias: Nest Backyard - Person Detected
   conditions:
   - condition: template
@@ -23,6 +22,9 @@
   - condition: state
     entity_id: input_boolean.vacation_mode
     state: 'off'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   description: ''
   id: '1782569285600'
   mode: single
@@ -32,14 +34,13 @@
     event_type: state_changed
     trigger: event
 - actions:
-  - action: notify.send_message
+  - action: script.notify_security_snapshot
     data:
-      message: Someone was seen on the driveway camera
+      camera_id: camera.driveway
+      snapshot_prefix: driveway
       title: Person Spotted - Driveway
-    target:
-      entity_id:
-      - notify.pixel
-      - notify.jason_s_iphone
+      message: Someone was seen on the driveway camera
+      view_path: /
   alias: Nest Driveway - Person Detected
   conditions:
   - condition: template
@@ -56,6 +57,9 @@
   - condition: state
     entity_id: input_boolean.vacation_mode
     state: 'off'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   description: ''
   id: '1782569302342'
   mode: single
@@ -65,14 +69,13 @@
     event_type: state_changed
     trigger: event
 - actions:
-  - action: notify.send_message
+  - action: script.notify_security_snapshot
     data:
-      message: Someone was seen on the front yard camera
+      camera_id: camera.front_yard_camera
+      snapshot_prefix: front_yard
       title: Person Spotted - Front Yard
-    target:
-      entity_id:
-      - notify.pixel
-      - notify.jason_s_iphone
+      message: Someone was seen on the front yard camera
+      view_path: /front-yard-view/default_view
   alias: Nest Frontyard - Person Detected
   conditions:
   - condition: template
@@ -89,6 +92,9 @@
   - condition: state
     entity_id: input_boolean.vacation_mode
     state: 'off'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   description: ''
   id: '1782569371087'
   mode: single
@@ -98,14 +104,13 @@
     event_type: state_changed
     trigger: event
 - actions:
-  - action: notify.send_message
+  - action: script.notify_security_snapshot
     data:
-      message: Someone was seen at the gate & bins camera
+      camera_id: camera.gate_bins
+      snapshot_prefix: gate_bins
       title: Person Spotted - Gate & Bins
-    target:
-      entity_id:
-      - notify.pixel
-      - notify.jason_s_iphone
+      message: Someone was seen at the gate & bins camera
+      view_path: /
   alias: Nest Gate & Bins - Person Detected
   conditions:
   - condition: template
@@ -122,6 +127,9 @@
   - condition: state
     entity_id: input_boolean.vacation_mode
     state: 'off'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   description: ''
   id: '1782569824728'
   mode: single
@@ -131,14 +139,13 @@
     event_type: state_changed
     trigger: event
 - actions:
-  - action: notify.send_message
+  - action: script.notify_security_snapshot
     data:
-      message: Someone was seen on the patio camera
+      camera_id: camera.patio_camera
+      snapshot_prefix: patio
       title: Person Spotted - Patio
-    target:
-      entity_id:
-      - notify.pixel
-      - notify.jason_s_iphone
+      message: Someone was seen on the patio camera
+      view_path: /
   alias: Nest Patio - Person Detected
   conditions:
   - condition: template
@@ -155,6 +162,9 @@
   - condition: state
     entity_id: input_boolean.vacation_mode
     state: 'off'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
+      - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   description: ''
   id: '1782569851032'
   mode: single
@@ -211,27 +221,13 @@
     value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
       - as_timestamp(this.attributes.last_triggered)) > 120 }}'
   actions:
-  - action: camera.snapshot
+  - action: script.notify_security_snapshot
     data:
-      filename: /config/www/snapshots/front_door_latest.jpg
-    target:
-      entity_id: camera.front_door_snapshots_fluent
-  - delay:
-      seconds: 2
-  - action: notify.mobile_app_pixel
-    data:
-      data:
-        clickAction: /front-yard-view/default_view
-        image: /local/snapshots/front_door_latest.jpg
-      message: Detected at the front door.
+      camera_id: camera.front_door_snapshots_fluent
+      snapshot_prefix: front_door
       title: Front Door - {{ trigger.to_state.name }}
-  - action: notify.mobile_app_jason_s_iphone
-    data:
-      data:
-        image: https://home.jassie.us/local/snapshots/front_door_latest.jpg
-        url: https://home.jassie.us/front-yard-view/default_view
       message: Detected at the front door.
-      title: Front Door - {{ trigger.to_state.name }}
+      view_path: /front-yard-view/default_view
   max_exceeded: silent
   mode: single
 - id: petlibro_cleaning_reset_after_sweepy

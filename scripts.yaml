@@ -78,3 +78,31 @@ good_morning_blinds:
       entity_id: cover.wide
     data:
       position: 100
+
+notify_security_snapshot:
+  alias: Notify security snapshot
+  description: ''
+  sequence:
+  - variables:
+      snapshot_name: "{{ snapshot_prefix }}_{{ now().strftime('%Y%m%d_%H%M%S') }}_{{ context.id[-8:] }}"
+  - action: camera.snapshot
+    data:
+      filename: /config/www/snapshots/{{ snapshot_name }}.jpg
+    target:
+      entity_id: "{{ camera_id }}"
+  - delay:
+      seconds: 2
+  - action: notify.mobile_app_pixel
+    data:
+      data:
+        clickAction: "{{ view_path }}"
+        image: /local/snapshots/{{ snapshot_name }}.jpg
+      message: "{{ message }}"
+      title: "{{ title }}"
+  - action: notify.mobile_app_jason_s_iphone
+    data:
+      data:
+        image: https://home.jassie.us/local/snapshots/{{ snapshot_name }}.jpg
+        url: https://home.jassie.us{{ view_path }}
+      message: "{{ message }}"
+      title: "{{ title }}"
