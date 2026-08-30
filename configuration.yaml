@@ -26,6 +26,21 @@ input_text:
 frontend:
   themes: !include_dir_merge_named themes
 
+lovelace:
+  dashboards:
+    front-yard-view:
+      mode: yaml
+      title: Front Yard
+      icon: mdi:grass
+      show_in_sidebar: false
+      filename: dashboards/front-yard.yaml
+    map-view:
+      mode: yaml
+      title: Map
+      icon: mdi:map
+      show_in_sidebar: true
+      filename: dashboards/map.yaml
+
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml

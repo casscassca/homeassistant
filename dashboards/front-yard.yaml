@@ -1,0 +1,29 @@
+views:
+  - title: Front Door
+    path: default_view
+    icon: mdi:cctv
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture-entity
+            entity: camera.front_door_fluent
+            name: Front Door
+            camera_view: live
+            show_state: true
+          - type: entities
+            title: Front Door Status
+            entities:
+              - binary_sensor.front_door_contact
+              - binary_sensor.front_door_person
+              - binary_sensor.front_door_vehicle
+              - binary_sensor.front_door_visitor
+      - type: picture-entity
+        entity: camera.driveway
+        name: Driveway
+        camera_view: live
+        show_state: true
+      - type: picture-entity
+        entity: camera.front_yard_camera
+        name: Front Yard
+        camera_view: live
+        show_state: true
