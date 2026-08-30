@@ -251,6 +251,6 @@
   actions:
   - action: rest_command.petlibro_cleaning_reset
     data:
-      device_sn: !secret petlibro_wet_food_device_sn
+      device_sn: "{{ states('input_text.petlibro_wet_food_device_sn') }}"
       request_id: "{{ context.id | replace('-', '') }}"
   mode: single

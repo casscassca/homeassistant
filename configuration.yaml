@@ -5,6 +5,13 @@ homeassistant:
 # Loads default set of integrations. Do not remove.
 default_config:
 
+input_text:
+  petlibro_wet_food_device_sn:
+    name: Petlibro wet food feeder serial
+    initial: !secret petlibro_wet_food_device_sn
+    mode: password
+    max: 32
+
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
