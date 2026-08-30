@@ -249,33 +249,79 @@
          and trigger.to_state.state not in ['unknown', 'unavailable']
          and trigger.from_state.state != trigger.to_state.state }}
   actions:
-  - action: rest_command.petlibro_cleaning_reset
-    data:
-      device_sn: "{{ states('input_text.petlibro_wet_food_device_sn') }}"
-      request_id: "{{ context.id | replace('-', '') }}"
-    response_variable: petlibro_response
+  - action: rest_command.petlibro_login
+    response_variable: petlibro_login
   - variables:
-      petlibro_api_status: "{{ petlibro_response.status | default('unknown') }}"
-      petlibro_api_code: "{{ petlibro_response.content.code | default('not returned') }}"
+      petlibro_login_status: "{{ petlibro_login.status | default('unknown') }}"
+      petlibro_login_code: >-
+        {% set raw = petlibro_login.content %}
+        {% if raw is mapping %}
+          {{ raw.get('code', 'not returned') }}
+        {% elif raw is string %}
+          {{ (raw | from_json).get('code', 'not returned') }}
+        {% else %}
+          not returned
+        {% endif %}
+      petlibro_token: >-
+        {% set raw = petlibro_login.content %}
+        {% if raw is mapping %}
+          {{ (raw.get('data') or {}).get('token', '') }}
+        {% elif raw is string %}
+          {{ ((raw | from_json).get('data') or {}).get('token', '') }}
+        {% else %}
+        {% endif %}
   - choose:
     - conditions:
       - condition: template
         value_template: >-
-          {{ petlibro_api_status | int(0) >= 200
-             and petlibro_api_status | int(0) < 300
-             and petlibro_api_code == '0' }}
+          {{ petlibro_login_status | int(0) >= 200
+             and petlibro_login_status | int(0) < 300
+             and petlibro_login_code | string == '0'
+             and petlibro_token | length > 0 }}
       sequence:
-      - action: logbook.log
+      - action: rest_command.petlibro_cleaning_reset
         data:
-          name: Petlibro cleaning reset
-          message: >-
-            API reset returned HTTP {{ petlibro_api_status }}
-            with API code {{ petlibro_api_code }}.
+          token: "{{ petlibro_token }}"
+          device_sn: "{{ states('input_text.petlibro_wet_food_device_sn') }}"
+          request_id: "{{ context.id | replace('-', '') }}"
+        response_variable: petlibro_response
+      - variables:
+          petlibro_api_status: "{{ petlibro_response.status | default('unknown') }}"
+          petlibro_api_code: >-
+            {% set raw = petlibro_response.content %}
+            {% if raw is mapping %}
+              {{ raw.get('code', 'not returned') }}
+            {% elif raw is string %}
+              {{ (raw | from_json).get('code', 'not returned') }}
+            {% else %}
+              not returned
+            {% endif %}
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{ petlibro_api_status | int(0) >= 200
+                 and petlibro_api_status | int(0) < 300
+                 and petlibro_api_code | string == '0' }}
+          sequence:
+          - action: logbook.log
+            data:
+              name: Petlibro cleaning reset
+              message: >-
+                API reset returned HTTP {{ petlibro_api_status }}
+                with API code {{ petlibro_api_code }}.
+        default:
+        - action: persistent_notification.create
+          data:
+            title: Petlibro cleaning reset failed
+            message: >-
+              API reset returned HTTP {{ petlibro_api_status }}
+              with API code {{ petlibro_api_code }}.
     default:
     - action: persistent_notification.create
       data:
-        title: Petlibro cleaning reset failed
+        title: Petlibro login failed
         message: >-
-          API reset returned HTTP {{ petlibro_api_status }}
-          with API code {{ petlibro_api_code }}.
+          Login returned HTTP {{ petlibro_login_status }}
+          with API code {{ petlibro_login_code }}.
   mode: single

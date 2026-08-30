@@ -6,6 +6,16 @@ homeassistant:
 default_config:
 
 input_text:
+  petlibro_email:
+    name: Petlibro email
+    initial: !secret petlibro_email
+    mode: password
+    max: 128
+  petlibro_password:
+    name: Petlibro password
+    initial: !secret petlibro_password
+    mode: password
+    max: 128
   petlibro_wet_food_device_sn:
     name: Petlibro wet food feeder serial
     initial: !secret petlibro_wet_food_device_sn
@@ -40,11 +50,22 @@ rest_command:
       x-webhook-secret: "{{ secret }}"
     content_type: "application/json"
     payload: '{"action": "{{ action }}"}'
+  petlibro_login:
+    url: "https://api.us.petlibro.com/member/auth/login"
+    method: POST
+    headers:
+      source: "ANDROID"
+      language: "EN"
+      timezone: "America/Chicago"
+      version: "1.3.45"
+      Content-Type: "application/json"
+    payload: >-
+      {"appId":1,"appSn":"c35772530d1041699c87fe62348507a8","country":"US","email":"{{ states('input_text.petlibro_email') }}","password":"{{ states('input_text.petlibro_password') | md5 }}","phoneBrand":"","phoneSystemVersion":"","timezone":"America/Chicago","thirdId":null,"type":null}
   petlibro_cleaning_reset:
     url: "https://api.us.petlibro.com/device/device/machineCleaningReset"
     method: POST
     headers:
-      token: !secret petlibro_api_token
+      token: "{{ token }}"
       source: "ANDROID"
       language: "EN"
       timezone: "America/Chicago"
