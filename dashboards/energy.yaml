@@ -1,0 +1,68 @@
+views:
+  - title: Electric
+    path: electric
+    icon: mdi:flash
+    cards:
+      - type: markdown
+        content: Austin Energy history is delayed about 48 hours. Today and yesterday will usually look empty.
+      - type: entities
+        title: This bill
+        entities:
+          - entity: sensor.elec_account_0641987895_current_bill_electric_usage_to_date
+            name: Usage to date
+          - entity: sensor.elec_account_0641987895_current_bill_electric_cost_to_date
+            name: Cost to date
+          - entity: sensor.elec_account_0641987895_current_bill_electric_forecasted_usage
+            name: Forecasted usage
+          - entity: sensor.elec_account_0641987895_current_bill_electric_forecasted_cost
+            name: Forecasted cost
+          - entity: sensor.elec_account_0641987895_last_updated
+            name: Last updated
+      - type: energy-date-selection
+      - type: energy-usage-graph
+        title: Usage
+      - type: energy-sources-table
+      - type: energy-devices-graph
+        title: Tracked devices
+      - type: energy-devices-detail-graph
+        title: Device detail
+  - title: History
+    path: history
+    icon: mdi:chart-bar
+    cards:
+      - type: statistics-graph
+        title: Daily usage
+        days_to_show: 60
+        period: day
+        stat_types:
+          - change
+        entities:
+          - entity: opower:coa_elec_0641987895_energy_consumption
+            name: Electric
+      - type: statistics-graph
+        title: Daily cost
+        days_to_show: 60
+        period: day
+        stat_types:
+          - change
+        entities:
+          - entity: opower:coa_elec_0641987895_energy_cost
+            name: Cost
+      - type: statistics-graph
+        title: Monthly usage
+        days_to_show: 730
+        period: month
+        stat_types:
+          - change
+        entities:
+          - entity: opower:coa_elec_0641987895_energy_consumption
+            name: Electric
+      - type: statistics-graph
+        title: Monthly cost
+        days_to_show: 730
+        period: month
+        stat_types:
+          - change
+        entities:
+          - entity: opower:coa_elec_0641987895_energy_cost
+            name: Cost
