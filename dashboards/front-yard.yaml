@@ -6,24 +6,24 @@ views:
       - type: vertical-stack
         cards:
           - type: picture-entity
-            entity: camera.front_door_fluent
+            entity: camera.frontyard_door_fluent
             name: Front Door
             camera_view: live
             show_state: true
           - type: entities
             title: Front Door Status
             entities:
-              - binary_sensor.front_door_contact
-              - binary_sensor.front_door_person
-              - binary_sensor.front_door_vehicle
-              - binary_sensor.front_door_visitor
+              - binary_sensor.entry_front_contact
+              - binary_sensor.frontyard_door_person
+              - binary_sensor.frontyard_door_vehicle
+              - binary_sensor.frontyard_door_visitor
       - type: picture-entity
-        entity: camera.driveway
+        entity: camera.frontyard_driveway
         name: Driveway
         camera_view: live
         show_state: true
       - type: picture-entity
-        entity: camera.front_yard_camera
+        entity: camera.frontyard
         name: Front Yard
         camera_view: live
         show_state: true

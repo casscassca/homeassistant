@@ -6,50 +6,50 @@ good_morning_blinds:
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.main_upper_center
-      - cover.main_upper_left
-      - cover.main_upper_right
+      - cover.bedroom_center_blind
+      - cover.bedroom_left_blind
+      - cover.bedroom_right_blind
     data:
       position: 100
   - action: cover.set_cover_position
     target:
-      entity_id: cover.main_side_top
+      entity_id: cover.bedroom_side_top_blind
     data:
       position: 40
   - action: cover.set_cover_position
     target:
-      entity_id: cover.main_side_bottom
+      entity_id: cover.bedroom_side_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
-      entity_id: cover.dining_top
+      entity_id: cover.dining_main_top_blind
     data:
       position: 40
   - action: cover.set_cover_position
     target:
-      entity_id: cover.dining_bottom
+      entity_id: cover.dining_main_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
-      entity_id: cover.front_office_top
+      entity_id: cover.jason_office_main_top_blind
     data:
       position: 40
   - action: cover.set_cover_position
     target:
-      entity_id: cover.front_office_bottom
+      entity_id: cover.jason_office_main_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.upper_center
-      - cover.upper_left
-      - cover.upper_right
+      - cover.living_room_center_blind
+      - cover.living_room_left_blind
+      - cover.living_room_right_blind
     data:
       position: 100
   - delay: 00:00:02
@@ -59,23 +59,23 @@ good_morning_blinds:
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.big_top
-      - cover.cass_office_left_top
-      - cover.cass_office_right_top
+      - cover.landing_big_top_blind
+      - cover.cass_office_left_top_blind
+      - cover.cass_office_right_top_blind
     data:
       position: 40
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.big_bottom
-      - cover.cass_office_left_bottom
-      - cover.cass_office_right_bottom
+      - cover.landing_big_bottom_blind
+      - cover.cass_office_left_bottom_blind
+      - cover.cass_office_right_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
-      entity_id: cover.wide
+      entity_id: cover.landing_wide_blind
     data:
       position: 100
 
@@ -87,48 +87,111 @@ good_night_blinds:
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.main_upper_center
-      - cover.main_upper_left
-      - cover.main_upper_right
-      - cover.main_side_top
-      - cover.main_side_bottom
+      - cover.bedroom_center_blind
+      - cover.bedroom_left_blind
+      - cover.bedroom_right_blind
+      - cover.bedroom_side_top_blind
+      - cover.bedroom_side_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.dining_top
-      - cover.dining_bottom
-      - cover.front_office_top
-      - cover.front_office_bottom
+      - cover.dining_main_top_blind
+      - cover.dining_main_bottom_blind
+      - cover.jason_office_main_top_blind
+      - cover.jason_office_main_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.upper_center
-      - cover.upper_left
-      - cover.upper_right
-      - cover.wide
-      - cover.big_top
-      - cover.big_bottom
+      - cover.living_room_center_blind
+      - cover.living_room_left_blind
+      - cover.living_room_right_blind
+      - cover.landing_wide_blind
+      - cover.landing_big_top_blind
+      - cover.landing_big_bottom_blind
     data:
       position: 0
   - delay: 00:00:02
   - action: cover.set_cover_position
     target:
       entity_id:
-      - cover.cass_office_left_top
-      - cover.cass_office_left_bottom
-      - cover.cass_office_right_top
-      - cover.cass_office_right_bottom
-      - cover.right_top
-      - cover.right_bottom
-      - cover.top
+      - cover.cass_office_left_top_blind
+      - cover.cass_office_left_bottom_blind
+      - cover.cass_office_right_top_blind
+      - cover.cass_office_right_bottom_blind
+      - cover.spareroom_right_top_blind
+      - cover.spareroom_right_bottom_blind
+      - cover.spareroom_top_blind
     data:
       position: 0
+
+hello_world:
+  alias: Hello World
+  description: ''
+  icon: mdi:hand-wave
+  sequence:
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.bedroom_center_blind
+      - cover.bedroom_left_blind
+      - cover.bedroom_right_blind
+      - cover.bedroom_side_top_blind
+      - cover.bedroom_side_bottom_blind
+    data:
+      position: 100
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.dining_main_top_blind
+      - cover.dining_main_bottom_blind
+      - cover.jason_office_main_top_blind
+      - cover.jason_office_main_bottom_blind
+    data:
+      position: 100
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.living_room_center_blind
+      - cover.living_room_left_blind
+      - cover.living_room_right_blind
+    data:
+      position: 100
+
+good_morning_upstairs:
+  alias: Good Morning Upstairs
+  description: ''
+  icon: mdi:weather-sunset-up
+  sequence:
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.landing_big_top_blind
+      - cover.cass_office_left_top_blind
+      - cover.cass_office_right_top_blind
+    data:
+      position: 40
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.landing_big_bottom_blind
+      - cover.cass_office_left_bottom_blind
+      - cover.cass_office_right_bottom_blind
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.landing_wide_blind
+    data:
+      position: 100
 
 notify_security_snapshot:
   alias: Notify security snapshot

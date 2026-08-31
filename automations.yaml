@@ -1,7 +1,7 @@
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.backyard_camera
+      camera_id: camera.backyard
       snapshot_prefix: backyard
       title: Person Spotted - Backyard
       message: Someone was seen on the backyard camera
@@ -30,13 +30,13 @@
   mode: single
   triggers:
   - event_data:
-      entity_id: event.backyard_camera_motion
+      entity_id: event.backyard_motion
     event_type: state_changed
     trigger: event
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.driveway
+      camera_id: camera.frontyard_driveway
       snapshot_prefix: driveway
       title: Person Spotted - Driveway
       message: Someone was seen on the driveway camera
@@ -65,13 +65,13 @@
   mode: single
   triggers:
   - event_data:
-      entity_id: event.driveway_motion
+      entity_id: event.frontyard_driveway_motion
     event_type: state_changed
     trigger: event
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.front_yard_camera
+      camera_id: camera.frontyard
       snapshot_prefix: front_yard
       title: Person Spotted - Front Yard
       message: Someone was seen on the front yard camera
@@ -100,13 +100,13 @@
   mode: single
   triggers:
   - event_data:
-      entity_id: event.front_yard_camera_motion
+      entity_id: event.frontyard_motion
     event_type: state_changed
     trigger: event
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.gate_bins
+      camera_id: camera.backyard_gate
       snapshot_prefix: gate_bins
       title: Person Spotted - Gate & Bins
       message: Someone was seen at the gate & bins camera
@@ -135,13 +135,13 @@
   mode: single
   triggers:
   - event_data:
-      entity_id: event.gate_bins_motion
+      entity_id: event.backyard_gate_motion
     event_type: state_changed
     trigger: event
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.patio_camera
+      camera_id: camera.patio
       snapshot_prefix: patio
       title: Person Spotted - Patio
       message: Someone was seen on the patio camera
@@ -170,33 +170,33 @@
   mode: single
   triggers:
   - event_data:
-      entity_id: event.patio_camera_motion
+      entity_id: event.patio_motion
     event_type: state_changed
     trigger: event
 - actions:
   - action: light.toggle
     target:
-      entity_id: light.cass_bedside
+      entity_id: light.bedroom_cass_bedside
   alias: Cass Bedside Button - Light Toggle
   conditions: []
   description: ''
   id: cass_bedside_button_light
   mode: single
   triggers:
-  - entity_id: sensor.cass_bedside_button_action
+  - entity_id: sensor.bedroom_cass_bedside_action
     to: single
     trigger: state
 - actions:
   - action: light.toggle
     target:
-      entity_id: light.jason_s_bedside
+      entity_id: light.bedroom_jason_bedside
   alias: Jason Bedside Button - Light Toggle
   conditions: []
   description: ''
   id: jason_bedside_button_light
   mode: single
   triggers:
-  - entity_id: sensor.jason_bedside_button_action
+  - entity_id: sensor.bedroom_jason_bedside_action
     to: single
     trigger: state
 - id: reolink_front_door_activity
@@ -204,18 +204,18 @@
   description: ''
   triggers:
   - entity_id:
-    - binary_sensor.front_door_person
-    - binary_sensor.front_door_vehicle
-    - binary_sensor.front_door_visitor
-    - binary_sensor.front_door_pet
+    - binary_sensor.frontyard_door_person
+    - binary_sensor.frontyard_door_vehicle
+    - binary_sensor.frontyard_door_visitor
+    - binary_sensor.frontyard_door_pet
     to: 'on'
     trigger: state
   conditions:
   - condition: template
-    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.front_door_contact.last_changed))
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.entry_front_contact.last_changed))
       > 30 }}'
   - condition: template
-    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.cover.ratgdo_door.last_changed))
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.cover.garage_door.last_changed))
       > 120 }}'
   - condition: template
     value_template: '{{ this.attributes.last_triggered is none or (as_timestamp(now())
@@ -223,7 +223,7 @@
   actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.front_door_snapshots_fluent
+      camera_id: camera.frontyard_door_snapshots_fluent
       snapshot_prefix: front_door
       title: Front Door - {{ trigger.to_state.name if 'to_state' in trigger else 'Activity' }}
       message: Detected at the front door.
@@ -235,7 +235,7 @@
   description: ''
   triggers:
   - trigger: state
-    entity_id: sensor.juicebox_sweepy_clean_setup_last_done
+    entity_id: sensor.juicebox_clean_setup_last_done
   conditions:
   - condition: template
     value_template: >-
