@@ -141,8 +141,17 @@ hello_world:
       - cover.bedroom_center_blind
       - cover.bedroom_left_blind
       - cover.bedroom_right_blind
-      - cover.bedroom_side_top_blind
-      - cover.bedroom_side_bottom_blind
+    data:
+      position: 100
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.bedroom_side_top_blind
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.bedroom_side_bottom_blind
     data:
       position: 100
   - delay: 00:00:02
@@ -150,8 +159,14 @@ hello_world:
     target:
       entity_id:
       - cover.dining_main_top_blind
-      - cover.dining_main_bottom_blind
       - cover.jason_office_main_top_blind
+    data:
+      position: 0
+  - delay: 00:00:02
+  - action: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.dining_main_bottom_blind
       - cover.jason_office_main_bottom_blind
     data:
       position: 100
