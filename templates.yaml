@@ -1,0 +1,37 @@
+- sensor:
+  - name: Austin Energy rate
+    unique_id: austin_energy_volumetric_rate
+    unit_of_measurement: USD/kWh
+    state_class: measurement
+    icon: mdi:currency-usd
+    state: >
+      {% set bill = states('sensor.elec_account_0641987895_current_bill_electric_usage_to_date') %}
+      {% set vue = states('sensor.nikola_energy_this_month') %}
+      {% set used = bill | float(vue | float(0)) if bill not in ['unknown', 'unavailable', 'none', ''] else vue | float(0) %}
+      {% if used <= 300 %}
+        {% set energy = 0.04640 %}
+      {% elif used <= 900 %}
+        {% set energy = 0.05138 %}
+      {% elif used <= 2000 %}
+        {% set energy = 0.07525 %}
+      {% else %}
+        {% set energy = 0.10884 %}
+      {% endif %}
+      {% set adders = 0.04118 - 0.00206 + 0.00564 + 0.00254 + 0.00457 + 0.01338 %}
+      {{ ((energy + adders) * 1.01) | round(5) }}
+  - name: Austin Energy tier
+    unique_id: austin_energy_tier
+    icon: mdi:stairs
+    state: >
+      {% set bill = states('sensor.elec_account_0641987895_current_bill_electric_usage_to_date') %}
+      {% set vue = states('sensor.nikola_energy_this_month') %}
+      {% set used = bill | float(vue | float(0)) if bill not in ['unknown', 'unavailable', 'none', ''] else vue | float(0) %}
+      {% if used <= 300 %}
+        1
+      {% elif used <= 900 %}
+        2
+      {% elif used <= 2000 %}
+        3
+      {% else %}
+        4
+      {% endif %}

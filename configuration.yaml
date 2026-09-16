@@ -50,6 +50,7 @@ lovelace:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+template: !include templates.yaml
 
 google_assistant:
   project_id: he-voice-06a10

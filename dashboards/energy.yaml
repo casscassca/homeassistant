@@ -3,29 +3,40 @@ views:
     path: electric
     icon: mdi:flash
     cards:
-      - type: markdown
-        content: Austin Energy history is delayed about 48 hours. Today and yesterday will usually look empty.
       - type: entities
-        title: This bill
+        title: Vue
         entities:
+          - entity: sensor.nikola_power_minute_average
+            name: Power now
+          - entity: sensor.nikola_energy_today
+            name: Today
+          - entity: sensor.nikola_energy_this_month
+            name: This month
+          - entity: sensor.balance_energy_today
+            name: Unmonitored today
+          - entity: sensor.balance_energy_this_month
+            name: Unmonitored this month
+      - type: entities
+        title: Austin Energy
+        entities:
+          - entity: sensor.austin_energy_rate
+            name: Current rate
+          - entity: sensor.austin_energy_tier
+            name: Tier
           - entity: sensor.elec_account_0641987895_current_bill_electric_usage_to_date
-            name: Usage to date
+            name: Bill usage to date
           - entity: sensor.elec_account_0641987895_current_bill_electric_cost_to_date
-            name: Cost to date
-          - entity: sensor.elec_account_0641987895_current_bill_electric_forecasted_usage
-            name: Forecasted usage
+            name: Bill cost to date
           - entity: sensor.elec_account_0641987895_current_bill_electric_forecasted_cost
-            name: Forecasted cost
-          - entity: sensor.elec_account_0641987895_last_updated
-            name: Last updated
+            name: Forecasted bill
       - type: energy-date-selection
       - type: energy-usage-graph
         title: Usage
       - type: energy-sources-table
       - type: energy-devices-graph
-        title: Tracked devices
+        title: Circuits
       - type: energy-devices-detail-graph
-        title: Device detail
+        title: Circuit detail
   - title: History
     path: history
     icon: mdi:chart-bar
@@ -37,17 +48,8 @@ views:
         stat_types:
           - change
         entities:
-          - entity: opower:coa_elec_0641987895_energy_consumption
-            name: Electric
-      - type: statistics-graph
-        title: Daily cost
-        days_to_show: 60
-        period: day
-        stat_types:
-          - change
-        entities:
-          - entity: opower:coa_elec_0641987895_energy_cost
-            name: Cost
+          - entity: sensor.nikola_energy_today
+            name: House
       - type: statistics-graph
         title: Monthly usage
         days_to_show: 730
@@ -55,14 +57,14 @@ views:
         stat_types:
           - change
         entities:
-          - entity: opower:coa_elec_0641987895_energy_consumption
-            name: Electric
+          - entity: sensor.nikola_energy_this_month
+            name: House
       - type: statistics-graph
-        title: Monthly cost
-        days_to_show: 730
-        period: month
+        title: Power
+        days_to_show: 2
+        period: hour
         stat_types:
-          - change
+          - mean
         entities:
-          - entity: opower:coa_elec_0641987895_energy_cost
-            name: Cost
+          - entity: sensor.nikola_power_minute_average
+            name: Power
