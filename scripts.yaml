@@ -5,28 +5,45 @@ good_morning_blinds:
   sequence:
   - repeat:
       for_each:
-      - scene.server_room_gateway_main_bedroom_privacy
-      - scene.server_room_gateway_dining_room_privacy
-      - scene.server_room_gateway_office_privacy
-      - scene.server_room_gateway_living_room_open
+      - scene: scene.server_room_gateway_dining_room_privacy
+        wait: 14
+      - scene: scene.server_room_gateway_office_privacy
+        wait: 12
+      - scene: scene.server_room_gateway_living_room_open
+        wait: 20
+      - scene: scene.server_room_gateway_main_bedroom_privacy
+        wait: 16
       sequence:
       - action: scene.turn_on
         target:
-          entity_id: '{{ repeat.item }}'
-      - delay: 00:00:03
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06
   - condition: state
     entity_id: input_boolean.guests_over
     state: 'off'
   - repeat:
       for_each:
-      - scene.server_room_gateway_lounge_privacy
-      - scene.server_room_gateway_media_privacy
-      - scene.server_room_gateway_dads_room_privacy
+      - scene: scene.server_room_gateway_lounge_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_media_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_dads_room_privacy
+        wait: 16
       sequence:
       - action: scene.turn_on
         target:
-          entity_id: '{{ repeat.item }}'
-      - delay: 00:00:03
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06
 
 good_night_blinds:
   alias: Good Night Blinds
@@ -35,18 +52,30 @@ good_night_blinds:
   sequence:
   - repeat:
       for_each:
-      - scene.server_room_gateway_main_bedroom_close
-      - scene.server_room_gateway_dining_room_close
-      - scene.server_room_gateway_office_close
-      - scene.server_room_gateway_living_room_close
-      - scene.server_room_gateway_lounge_close
-      - scene.server_room_gateway_media_close
-      - scene.server_room_gateway_dads_room_close
+      - scene: scene.server_room_gateway_dining_room_close
+        wait: 14
+      - scene: scene.server_room_gateway_office_close
+        wait: 12
+      - scene: scene.server_room_gateway_living_room_close
+        wait: 20
+      - scene: scene.server_room_gateway_main_bedroom_close
+        wait: 24
+      - scene: scene.server_room_gateway_lounge_close
+        wait: 16
+      - scene: scene.server_room_gateway_media_close
+        wait: 16
+      - scene: scene.server_room_gateway_dads_room_close
+        wait: 16
       sequence:
       - action: scene.turn_on
         target:
-          entity_id: '{{ repeat.item }}'
-      - delay: 00:00:03
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06
 
 hello_world:
   alias: Hello World
@@ -55,18 +84,30 @@ hello_world:
   sequence:
   - repeat:
       for_each:
-      - scene.server_room_gateway_main_bedroom_open
-      - scene.server_room_gateway_dining_room_open
-      - scene.server_room_gateway_office_open
-      - scene.server_room_gateway_living_room_open
-      - scene.server_room_gateway_lounge_open
-      - scene.server_room_gateway_media_open
-      - scene.server_room_gateway_dads_room_open
+      - scene: scene.server_room_gateway_dining_room_open
+        wait: 14
+      - scene: scene.server_room_gateway_office_open
+        wait: 12
+      - scene: scene.server_room_gateway_living_room_open
+        wait: 20
+      - scene: scene.server_room_gateway_main_bedroom_open
+        wait: 24
+      - scene: scene.server_room_gateway_lounge_open
+        wait: 16
+      - scene: scene.server_room_gateway_media_open
+        wait: 16
+      - scene: scene.server_room_gateway_dads_room_open
+        wait: 16
       sequence:
       - action: scene.turn_on
         target:
-          entity_id: '{{ repeat.item }}'
-      - delay: 00:00:03
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06
 
 good_morning_upstairs:
   alias: Good Morning Upstairs
@@ -75,13 +116,20 @@ good_morning_upstairs:
   sequence:
   - repeat:
       for_each:
-      - scene.server_room_gateway_lounge_privacy
-      - scene.server_room_gateway_media_privacy
+      - scene: scene.server_room_gateway_lounge_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_media_privacy
+        wait: 16
       sequence:
       - action: scene.turn_on
         target:
-          entity_id: '{{ repeat.item }}'
-      - delay: 00:00:03
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06
 
 notify_security_snapshot:
   alias: Notify security snapshot
