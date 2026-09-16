@@ -3,210 +3,85 @@ good_morning_blinds:
   description: ''
   icon: mdi:sun-wireless-outline
   sequence:
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.bedroom_center_blind
-      - cover.bedroom_left_blind
-      - cover.bedroom_right_blind
-    data:
-      position: 100
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.bedroom_side_top_blind
-    data:
-      position: 40
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.bedroom_side_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.dining_main_top_blind
-    data:
-      position: 40
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.dining_main_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.jason_office_main_top_blind
-    data:
-      position: 40
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.jason_office_main_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.living_room_center_blind
-      - cover.living_room_left_blind
-      - cover.living_room_right_blind
-    data:
-      position: 100
-  - delay: 00:00:02
+  - repeat:
+      for_each:
+      - scene.server_room_gateway_main_bedroom_privacy
+      - scene.server_room_gateway_dining_room_privacy
+      - scene.server_room_gateway_office_privacy
+      - scene.server_room_gateway_living_room_open
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item }}'
+      - delay: 00:00:03
   - condition: state
     entity_id: input_boolean.guests_over
     state: 'off'
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.landing_big_top_blind
-      - cover.cass_office_left_top_blind
-      - cover.cass_office_right_top_blind
-    data:
-      position: 40
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.landing_big_bottom_blind
-      - cover.cass_office_left_bottom_blind
-      - cover.cass_office_right_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.landing_wide_blind
-    data:
-      position: 100
+  - repeat:
+      for_each:
+      - scene.server_room_gateway_lounge_privacy
+      - scene.server_room_gateway_media_privacy
+      - scene.server_room_gateway_dads_room_privacy
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item }}'
+      - delay: 00:00:03
 
 good_night_blinds:
   alias: Good Night Blinds
   description: ''
   icon: mdi:weather-night
   sequence:
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.bedroom_center_blind
-      - cover.bedroom_left_blind
-      - cover.bedroom_right_blind
-      - cover.bedroom_side_top_blind
-      - cover.bedroom_side_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.dining_main_top_blind
-      - cover.dining_main_bottom_blind
-      - cover.jason_office_main_top_blind
-      - cover.jason_office_main_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.living_room_center_blind
-      - cover.living_room_left_blind
-      - cover.living_room_right_blind
-      - cover.landing_wide_blind
-      - cover.landing_big_top_blind
-      - cover.landing_big_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.cass_office_left_top_blind
-      - cover.cass_office_left_bottom_blind
-      - cover.cass_office_right_top_blind
-      - cover.cass_office_right_bottom_blind
-      - cover.spareroom_right_top_blind
-      - cover.spareroom_right_bottom_blind
-      - cover.spareroom_top_blind
-    data:
-      position: 0
+  - repeat:
+      for_each:
+      - scene.server_room_gateway_main_bedroom_close
+      - scene.server_room_gateway_dining_room_close
+      - scene.server_room_gateway_office_close
+      - scene.server_room_gateway_living_room_close
+      - scene.server_room_gateway_lounge_close
+      - scene.server_room_gateway_media_close
+      - scene.server_room_gateway_dads_room_close
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item }}'
+      - delay: 00:00:03
 
 hello_world:
   alias: Hello World
   description: ''
   icon: mdi:hand-wave
   sequence:
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.bedroom_center_blind
-      - cover.bedroom_left_blind
-      - cover.bedroom_right_blind
-    data:
-      position: 100
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.bedroom_side_top_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.bedroom_side_bottom_blind
-    data:
-      position: 100
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.dining_main_top_blind
-      - cover.jason_office_main_top_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.dining_main_bottom_blind
-      - cover.jason_office_main_bottom_blind
-    data:
-      position: 100
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.living_room_center_blind
-      - cover.living_room_left_blind
-      - cover.living_room_right_blind
-    data:
-      position: 100
+  - repeat:
+      for_each:
+      - scene.server_room_gateway_main_bedroom_open
+      - scene.server_room_gateway_dining_room_open
+      - scene.server_room_gateway_office_open
+      - scene.server_room_gateway_living_room_open
+      - scene.server_room_gateway_lounge_open
+      - scene.server_room_gateway_media_open
+      - scene.server_room_gateway_dads_room_open
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item }}'
+      - delay: 00:00:03
 
 good_morning_upstairs:
   alias: Good Morning Upstairs
   description: ''
   icon: mdi:weather-sunset-up
   sequence:
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.landing_big_top_blind
-      - cover.cass_office_left_top_blind
-      - cover.cass_office_right_top_blind
-    data:
-      position: 40
-  - action: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.landing_big_bottom_blind
-      - cover.cass_office_left_bottom_blind
-      - cover.cass_office_right_bottom_blind
-    data:
-      position: 0
-  - delay: 00:00:02
-  - action: cover.set_cover_position
-    target:
-      entity_id: cover.landing_wide_blind
-    data:
-      position: 100
+  - repeat:
+      for_each:
+      - scene.server_room_gateway_lounge_privacy
+      - scene.server_room_gateway_media_privacy
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item }}'
+      - delay: 00:00:03
 
 notify_security_snapshot:
   alias: Notify security snapshot
