@@ -35,3 +35,27 @@
       {% else %}
         4
       {% endif %}
+  - name: mower.navimow Battery
+    unique_id: navimow_battery_last_good
+    unit_of_measurement: "%"
+    device_class: battery
+    state_class: measurement
+    state: >
+      {% set current = states('sensor.navimow_battery') %}
+      {% set good = this.attributes.get('last_good') %}
+      {% set stale = good in [none, ''] or (now() - as_datetime(good)).total_seconds() > 86400 %}
+      {% if current not in ['unknown', 'unavailable', 'none', ''] %}
+        {{ current }}
+      {% elif this.state not in ['unknown', 'unavailable', 'none', ''] and not stale %}
+        {{ this.state }}
+      {% else %}
+        unknown
+      {% endif %}
+    attributes:
+      last_good: >
+        {% set current = states('sensor.navimow_battery') %}
+        {% if current not in ['unknown', 'unavailable', 'none', ''] %}
+          {{ now().isoformat() }}
+        {% else %}
+          {{ this.attributes.get('last_good', '') }}
+        {% endif %}
