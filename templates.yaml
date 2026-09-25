@@ -35,27 +35,35 @@
       {% else %}
         4
       {% endif %}
-  - name: mower.navimow Battery
-    unique_id: navimow_battery_last_good
-    unit_of_measurement: "%"
-    device_class: battery
-    state_class: measurement
-    state: >
-      {% set current = states('sensor.navimow_battery') %}
-      {% set good = this.attributes.get('last_good') %}
-      {% set stale = good in [none, ''] or (now() - as_datetime(good)).total_seconds() > 86400 %}
-      {% if current not in ['unknown', 'unavailable', 'none', ''] %}
-        {{ current }}
-      {% elif this.state not in ['unknown', 'unavailable', 'none', ''] and not stale %}
-        {{ this.state }}
-      {% else %}
-        unknown
-      {% endif %}
-    attributes:
-      last_good: >
+- triggers:
+    - trigger: state
+      entity_id: sensor.navimow_battery
+      not_to:
+        - unknown
+        - unavailable
+    - trigger: time_pattern
+      minutes: "/30"
+  sensor:
+    - name: mower.navimow Battery
+      unique_id: navimow_battery_last_good
+      unit_of_measurement: "%"
+      device_class: battery
+      state_class: measurement
+      state: >
         {% set current = states('sensor.navimow_battery') %}
-        {% if current not in ['unknown', 'unavailable', 'none', ''] %}
-          {{ now().isoformat() }}
+        {% if current | is_number %}
+          {{ current | int }}
+        {% elif this.state | is_number
+            and this.attributes.get('last_good')
+            and (now() - as_datetime(this.attributes.last_good)).total_seconds() <= 86400 %}
+          {{ this.state | int }}
         {% else %}
-          {{ this.attributes.get('last_good', '') }}
+          unknown
         {% endif %}
+      attributes:
+        last_good: >
+          {% if states('sensor.navimow_battery') | is_number %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ this.attributes.get('last_good', '') }}
+          {% endif %}
