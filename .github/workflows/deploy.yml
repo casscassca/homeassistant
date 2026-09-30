@@ -13,31 +13,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy-pi:
+  deploy-nas:
     runs-on: self-hosted
     timeout-minutes: 15
     steps:
       - name: Pull latest configuration
-        working-directory: /home/cassandrameijers/homeassistant
+        working-directory: /volume1/docker/homeassistant
         run: |
           set -euo pipefail
           git pull --ff-only
 
       - name: Pull the Home Assistant image
-        working-directory: /home/cassandrameijers/homeassistant
+        working-directory: /volume1/docker/homeassistant
         run: |
           set -euo pipefail
           docker compose config --quiet
           docker compose pull
 
       - name: Validate Home Assistant configuration
-        working-directory: /home/cassandrameijers/homeassistant
+        working-directory: /volume1/docker/homeassistant
         run: |
           set -euo pipefail
           docker compose run --rm --entrypoint hass homeassistant --script check_config --config /config
 
       - name: Restart Home Assistant
-        working-directory: /home/cassandrameijers/homeassistant
+        working-directory: /volume1/docker/homeassistant
         run: |
           set -euo pipefail
           docker compose up -d --force-recreate --no-build
