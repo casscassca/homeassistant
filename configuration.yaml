@@ -1,7 +1,7 @@
 
 homeassistant:
   external_url: "https://home.jassie.us"
-  internal_url: "http://192.168.5.166:8123"
+  internal_url: !secret internal_url
 # Loads default set of integrations. Do not remove.
 default_config:
 
