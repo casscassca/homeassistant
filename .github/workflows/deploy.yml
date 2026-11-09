@@ -21,10 +21,7 @@ jobs:
         working-directory: /volume1/docker/homeassistant
         run: |
           set -euo pipefail
-          if ! git pull --ff-only; then
-            git stash push -m "live yaml before fast-forward" -- automations.yaml configuration.yaml
-            git pull --ff-only
-          fi
+          git pull --ff-only
 
       - name: Pull the Home Assistant image
         working-directory: /volume1/docker/homeassistant
