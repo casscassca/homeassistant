@@ -260,3 +260,176 @@
   - action: google_assistant.request_sync
     continue_on_error: true
   mode: single
+- id: elawn_weekly_mow
+  alias: Elawn - Ask before weekly mow
+  description: >-
+    Thursday at noon marks the weekly mow due. Each day at noon, while it is
+    due, ask both phones unless rain fell yesterday or today, it is raining
+    now, or an hourly forecast in the next 4 hours is rainy or at least 60
+    percent likely.
+  triggers:
+  - trigger: time
+    at: "12:00:00"
+  actions:
+  # weekday() is Monday=0, so 3 is Thursday.
+  - if:
+    - condition: template
+      value_template: "{{ now().weekday() == 3 }}"
+    then:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.elawn_mow_due
+  - condition: template
+    value_template: "{{ now().weekday() == 3 or is_state('input_boolean.elawn_mow_due', 'on') }}"
+  - if:
+    - condition: state
+      entity_id: weather.forecast_home
+      state:
+      - rainy
+      - pouring
+      - lightning-rainy
+      - snowy-rainy
+    then:
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.elawn_last_rain
+      data:
+        value: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+  - action: weather.get_forecasts
+    target:
+      entity_id: weather.forecast_home
+    data:
+      type: hourly
+    response_variable: hourly_forecast
+  - if:
+    - condition: template
+      value_template: >-
+        {%- set rainy = ['rainy', 'pouring', 'lightning-rainy', 'snowy-rainy'] -%}
+        {%- set lookahead_hours = 4 -%}
+        {%- set high_probability = 60 -%}
+        {%- set last_raw = states('input_text.elawn_last_rain') -%}
+        {%- set last_ts = as_timestamp(last_raw, 0) if last_raw not in ['unknown', 'unavailable', 'none', ''] else 0 -%}
+        {%- set recent_rain = last_ts >= as_timestamp(today_at() - timedelta(days=1)) -%}
+        {%- set current_rain = states('weather.forecast_home') in rainy -%}
+        {%- set slot = hourly_forecast.get('weather.forecast_home', {}) if hourly_forecast is mapping else {} -%}
+        {%- set forecasts = slot.get('forecast', []) if slot is mapping else [] -%}
+        {%- set forecasts = forecasts if forecasts is sequence and forecasts is not string else [] -%}
+        {%- set window_start = as_timestamp(now().replace(minute=0, second=0, microsecond=0)) -%}
+        {%- set horizon = as_timestamp(now() + timedelta(hours=lookahead_hours)) -%}
+        {%- set ns = namespace(soon=false, count=0) -%}
+        {%- for item in forecasts -%}
+        {%- set ns.count = ns.count + 1 -%}
+        {%- set when = as_timestamp(item.datetime | default('', true), 0) -%}
+        {%- if window_start <= when <= horizon -%}
+        {%- if (item.condition | default('', true)) in rainy or (item.precipitation_probability | default(0, true) | float(0)) >= high_probability -%}
+        {%- set ns.soon = true -%}
+        {%- endif -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {{- recent_rain or current_rain or ns.soon or ns.count == 0 -}}
+    then:
+    - stop: Rain yesterday, today, or expected soon
+  - action: notify.mobile_app_pixel
+    continue_on_error: true
+    data:
+      title: Elawn
+      message: Elawn wants to know if the yard is good to go
+      data:
+        tag: elawn_yard_check
+        icon_url: /local/elawn_icon_round.png
+        notification_icon: mdi:robot-mower
+        color: '#F28C28'
+        actions:
+        - action: ELAWN_YARD_CLEAR
+          title: "Yard's clear"
+        - action: ELAWN_HOLD_OFF
+          title: Hold off
+  - action: notify.mobile_app_jason_s_iphone
+    continue_on_error: true
+    data:
+      title: Elawn
+      message: Elawn wants to know if the yard is good to go
+      data:
+        tag: elawn_yard_check
+        actions:
+        - action: ELAWN_YARD_CLEAR
+          title: "Yard's clear"
+        - action: ELAWN_HOLD_OFF
+          title: Hold off
+  mode: single
+- id: elawn_rain_dock
+  alias: Elawn - Dock when rain starts
+  description: >-
+    When the forecast turns rainy, pouring, lightning-rainy, or snowy-rainy,
+    remember the time. If Elawn is mowing, send it home and tell both phones.
+  triggers:
+  - trigger: state
+    entity_id: weather.forecast_home
+    to:
+    - rainy
+    - pouring
+    - lightning-rainy
+    - snowy-rainy
+  actions:
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.elawn_last_rain
+    data:
+      value: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+  - condition: state
+    entity_id: lawn_mower.navimow_x450
+    state: mowing
+  - action: lawn_mower.dock
+    target:
+      entity_id: lawn_mower.navimow_x450
+  - action: notify.mobile_app_pixel
+    continue_on_error: true
+    data:
+      title: Elawn
+      message: Elawn headed home because of rain
+  - action: notify.mobile_app_jason_s_iphone
+    continue_on_error: true
+    data:
+      title: Elawn
+      message: Elawn headed home because of rain
+  mode: single
+- id: elawn_yard_response
+  alias: Elawn - Yard check response
+  description: >-
+    Yard's clear starts mowing and clears the weekly due flag. Hold off leaves
+    it due. Either response clears the notification on both phones.
+  triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ELAWN_YARD_CLEAR
+    id: yard_clear
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ELAWN_HOLD_OFF
+    id: hold_off
+  actions:
+  - if:
+    - condition: trigger
+      id: yard_clear
+    then:
+    - action: lawn_mower.start_mowing
+      target:
+        entity_id: lawn_mower.navimow_x450
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.elawn_mow_due
+  - action: notify.mobile_app_pixel
+    continue_on_error: true
+    data:
+      message: clear_notification
+      data:
+        tag: elawn_yard_check
+  - action: notify.mobile_app_jason_s_iphone
+    continue_on_error: true
+    data:
+      message: clear_notification
+      data:
+        tag: elawn_yard_check
+  mode: single

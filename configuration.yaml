@@ -21,6 +21,18 @@ input_text:
     initial: !secret petlibro_wet_food_device_sn
     mode: password
     max: 32
+  elawn_last_rain:
+    name: Elawn last rain
+    # No initial value. An initial replaces the saved time on every restart.
+    icon: mdi:weather-rainy
+    max: 32
+    min: 0
+
+# No initial value. An initial would turn this off again on every restart.
+input_boolean:
+  elawn_mow_due:
+    name: Elawn mow due
+    icon: mdi:robot-mower
 
 # Load frontend themes from the themes folder
 frontend:
