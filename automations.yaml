@@ -264,9 +264,9 @@
   alias: Elawn - Ask before weekly mow
   description: >-
     Thursday at noon marks the weekly mow due. Each day at noon, while it is
-    due, ask both phones unless rain fell yesterday or today, it is raining
-    now, or an hourly forecast in the next 4 hours is rainy or at least 60
-    percent likely.
+    due, ask both phones unless rain or hail fell yesterday or today, the
+    current condition is wet, or an hourly forecast in the next 4 hours is
+    wet or at least 60 percent likely.
   triggers:
   - trigger: time
     at: "12:00:00"
@@ -289,6 +289,7 @@
       - pouring
       - lightning-rainy
       - snowy-rainy
+      - hail
     then:
     - action: input_text.set_value
       target:
@@ -304,7 +305,7 @@
   - if:
     - condition: template
       value_template: >-
-        {%- set rainy = ['rainy', 'pouring', 'lightning-rainy', 'snowy-rainy'] -%}
+        {%- set rainy = ['rainy', 'pouring', 'lightning-rainy', 'snowy-rainy', 'hail'] -%}
         {%- set lookahead_hours = 4 -%}
         {%- set high_probability = 60 -%}
         {%- set last_raw = states('input_text.elawn_last_rain') -%}
@@ -328,7 +329,7 @@
         {%- endfor -%}
         {{- recent_rain or current_rain or ns.soon or ns.count == 0 -}}
     then:
-    - stop: Rain yesterday, today, or expected soon
+    - stop: Wet weather yesterday, today, or expected soon
   - action: notify.mobile_app_pixel
     continue_on_error: true
     data:
@@ -358,10 +359,11 @@
           title: Hold off
   mode: single
 - id: elawn_rain_dock
-  alias: Elawn - Dock when rain starts
+  alias: Elawn - Dock when rain or hail starts
   description: >-
-    When the forecast turns rainy, pouring, lightning-rainy, or snowy-rainy,
-    remember the time. If Elawn is mowing, send it home and tell both phones.
+    When the current condition of weather.forecast_home changes to rainy,
+    pouring, lightning-rainy, snowy-rainy, or hail, remember the time. If
+    Elawn is mowing, send it home and tell both phones.
   triggers:
   - trigger: state
     entity_id: weather.forecast_home
@@ -370,6 +372,7 @@
     - pouring
     - lightning-rainy
     - snowy-rainy
+    - hail
   actions:
   - action: input_text.set_value
     target:
@@ -386,12 +389,12 @@
     continue_on_error: true
     data:
       title: Elawn
-      message: Elawn headed home because of rain
+      message: "{{ 'Elawn headed home because of hail' if trigger.to_state.state == 'hail' else 'Elawn headed home because of rain' }}"
   - action: notify.mobile_app_jason_s_iphone
     continue_on_error: true
     data:
       title: Elawn
-      message: Elawn headed home because of rain
+      message: "{{ 'Elawn headed home because of hail' if trigger.to_state.state == 'hail' else 'Elawn headed home because of rain' }}"
   mode: single
 - id: elawn_yard_response
   alias: Elawn - Yard check response
