@@ -265,8 +265,9 @@
   description: >-
     Thursday at noon marks the weekly mow due. Each day at noon, while it is
     due, ask both phones unless rain or hail fell yesterday or today, the
-    current condition is wet, or an hourly forecast in the next 4 hours is
-    wet or at least 60 percent likely.
+    Hydrawise rain sensor is wet, the current condition is wet, or an hourly
+    forecast in the next 4 hours is wet or at least 60 percent likely. The
+    forecast does not send the mower home.
   triggers:
   - trigger: time
     at: "12:00:00"
@@ -296,6 +297,16 @@
         entity_id: input_text.elawn_last_rain
       data:
         value: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+  - if:
+    - condition: state
+      entity_id: binary_sensor.wayne_o_rain_sensor
+      state: "on"
+    then:
+    - action: input_text.set_value
+      target:
+        entity_id: input_text.elawn_last_rain
+      data:
+        value: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
   - action: weather.get_forecasts
     target:
       entity_id: weather.forecast_home
@@ -312,6 +323,7 @@
         {%- set last_ts = as_timestamp(last_raw, 0) if last_raw not in ['unknown', 'unavailable', 'none', ''] else 0 -%}
         {%- set recent_rain = last_ts >= as_timestamp(today_at() - timedelta(days=1)) -%}
         {%- set current_rain = states('weather.forecast_home') in rainy -%}
+        {%- set sensor_rain = is_state('binary_sensor.wayne_o_rain_sensor', 'on') -%}
         {%- set slot = hourly_forecast.get('weather.forecast_home', {}) if hourly_forecast is mapping else {} -%}
         {%- set forecasts = slot.get('forecast', []) if slot is mapping else [] -%}
         {%- set forecasts = forecasts if forecasts is sequence and forecasts is not string else [] -%}
@@ -327,7 +339,7 @@
         {%- endif -%}
         {%- endif -%}
         {%- endfor -%}
-        {{- recent_rain or current_rain or ns.soon or ns.count == 0 -}}
+        {{- recent_rain or current_rain or sensor_rain or ns.soon or ns.count == 0 -}}
     then:
     - stop: Wet weather yesterday, today, or expected soon
   - action: notify.mobile_app_pixel
@@ -358,12 +370,12 @@
         - action: ELAWN_HOLD_OFF
           title: Hold off
   mode: single
-- id: elawn_rain_dock
-  alias: Elawn - Dock when rain or hail starts
+- id: elawn_record_rain
+  alias: Elawn - Remember rain and hail
   description: >-
     When the current condition of weather.forecast_home changes to rainy,
-    pouring, lightning-rainy, snowy-rainy, or hail, remember the time. If
-    Elawn is mowing, send it home and tell both phones.
+    pouring, lightning-rainy, snowy-rainy, or hail, remember the time. This
+    does not dock the mower.
   triggers:
   - trigger: state
     entity_id: weather.forecast_home
@@ -373,6 +385,23 @@
     - lightning-rainy
     - snowy-rainy
     - hail
+  actions:
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.elawn_last_rain
+    data:
+      value: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+  mode: single
+- id: elawn_rain_dock
+  alias: Elawn - Dock when the rain sensor is wet
+  description: >-
+    When binary_sensor.wayne_o_rain_sensor turns on, Hydrawise reports the
+    rain sensor as active. Remember the time. If Elawn is mowing, send it
+    home and tell both phones.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.wayne_o_rain_sensor
+    to: "on"
   actions:
   - action: input_text.set_value
     target:
@@ -389,18 +418,19 @@
     continue_on_error: true
     data:
       title: Elawn
-      message: "{{ 'Elawn headed home because of hail' if trigger.to_state.state == 'hail' else 'Elawn headed home because of rain' }}"
+      message: Elawn headed home because of rain
   - action: notify.mobile_app_jason_s_iphone
     continue_on_error: true
     data:
       title: Elawn
-      message: "{{ 'Elawn headed home because of hail' if trigger.to_state.state == 'hail' else 'Elawn headed home because of rain' }}"
+      message: Elawn headed home because of rain
   mode: single
 - id: elawn_yard_response
   alias: Elawn - Yard check response
   description: >-
-    Yard's clear starts mowing and clears the weekly due flag. Hold off leaves
-    it due. Either response clears the notification on both phones.
+    Yard's clear starts mowing and clears the weekly due flag, unless the
+    Hydrawise rain sensor is already wet. Hold off leaves it due. Either
+    response clears the notification on both phones.
   triggers:
   - trigger: event
     event_type: mobile_app_notification_action
@@ -416,6 +446,28 @@
   - if:
     - condition: trigger
       id: yard_clear
+    - condition: state
+      entity_id: binary_sensor.wayne_o_rain_sensor
+      state: "on"
+    then:
+    - action: notify.mobile_app_pixel
+      continue_on_error: true
+      data:
+        title: Elawn
+        message: Elawn stayed home because it's raining
+    - action: notify.mobile_app_jason_s_iphone
+      continue_on_error: true
+      data:
+        title: Elawn
+        message: Elawn stayed home because it's raining
+  - if:
+    - condition: trigger
+      id: yard_clear
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.wayne_o_rain_sensor
+        state: "on"
     then:
     - action: lawn_mower.start_mowing
       target:
