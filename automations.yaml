@@ -249,6 +249,25 @@
     target:
       entity_id: button.dining_room_feeder_wet_food_cleaning_reset
   mode: single
+- id: petlibro_desiccant_reset_after_sweepy_filters
+  alias: Reset Petlibro desiccant after replace food/water filters
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: sensor.juicebox_sweepy_replace_food_water_filters_last_done
+  conditions:
+  - condition: template
+    value_template: >-
+      {{ trigger.from_state is not none
+         and trigger.to_state is not none
+         and trigger.from_state.state not in ['unknown', 'unavailable']
+         and trigger.to_state.state not in ['unknown', 'unavailable']
+         and as_timestamp(trigger.to_state.state, 0) > as_timestamp(trigger.from_state.state, 0) > 0 }}
+  actions:
+  - action: button.press
+    target:
+      entity_id: button.dining_room_feeder_dry_food_desiccant_reset
+  mode: single
 - id: google_assistant_sync_on_start
   alias: Sync Google Assistant after Home Assistant starts
   description: ''
