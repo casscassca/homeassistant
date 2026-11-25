@@ -23,6 +23,7 @@ tts/
 backup/
 backups/
 www/snapshots/
+custom_components/
 
 # Local and editor files
 .DS_Store
