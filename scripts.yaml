@@ -199,33 +199,35 @@ camera_power_toggle:
 all_lights_off:
   alias: All lights off
   description: >-
-    Turn off household lights and lighting switches, leaving camera
-    floodlights, status LEDs, and the garage-door opener light alone.
+    Turn off indoor lights and the patio, leaving porch, garage, yard,
+    camera, and garage-door lights alone.
   icon: mdi:lightbulb-off
   mode: single
   sequence:
+  - variables:
+      outdoor_light_pattern: reolink|ratgdo|porch|garage|landscape|yard|exterior
+      lighting_switches:
+        - switch.frontyard_foyer
+        - switch.kitchen_under_cabinet
+        - switch.patio_main
   - action: light.turn_off
     target:
       entity_id: >
         {{ states.light
            | rejectattr('attributes.entity_id', 'defined')
            | map(attribute='entity_id')
-           | reject('search', 'reolink|ratgdo')
+           | reject('search', outdoor_light_pattern)
            | list }}
   - action: switch.turn_off
     target:
-      entity_id:
-        - switch.frontyard_foyer
-        - switch.kitchen_under_cabinet
-        - switch.patio_main
-        - switch.garage_sconces
+      entity_id: '{{ lighting_switches }}'
 
 bedtime_lights:
   alias: Bedtime lights
   description: >-
-    Turn off household lights and lighting switches except the bedroom
-    nightstand lamps. Leaves camera floodlights, status LEDs, and the
-    garage-door opener light alone.
+    Turn off indoor lights and the patio except the bedroom nightstand
+    lamps. Leaves porch, garage, yard, camera, and garage-door lights
+    alone.
   icon: mdi:bed
   mode: single
   sequence:
@@ -233,6 +235,11 @@ bedtime_lights:
       keep_on:
         - light.bedroom_cass_bedside
         - light.bedroom_jason_bedside
+      outdoor_light_pattern: reolink|ratgdo|porch|garage|landscape|yard|exterior
+      lighting_switches:
+        - switch.frontyard_foyer
+        - switch.kitchen_under_cabinet
+        - switch.patio_main
   - action: light.turn_off
     target:
       entity_id: >
@@ -240,12 +247,40 @@ bedtime_lights:
            | rejectattr('attributes.entity_id', 'defined')
            | map(attribute='entity_id')
            | reject('in', keep_on)
-           | reject('search', 'reolink|ratgdo')
+           | reject('search', outdoor_light_pattern)
            | list }}
   - action: switch.turn_off
     target:
-      entity_id:
-        - switch.frontyard_foyer
-        - switch.kitchen_under_cabinet
-        - switch.patio_main
-        - switch.garage_sconces
+      entity_id: '{{ lighting_switches }}'
+
+privacy_blinds:
+  alias: Privacy Blinds
+  description: >-
+    Set each room that has a Privacy scene to Privacy. Leaves the living
+    room alone.
+  icon: mdi:blinds
+  sequence:
+  - repeat:
+      for_each:
+      - scene: scene.server_room_gateway_dining_room_privacy
+        wait: 14
+      - scene: scene.server_room_gateway_office_privacy
+        wait: 12
+      - scene: scene.server_room_gateway_main_bedroom_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_lounge_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_media_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_dads_room_privacy
+        wait: 16
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay:
+          seconds: '{{ repeat.item.wait }}'
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ repeat.item.scene }}'
+      - delay: 00:00:06

@@ -235,6 +235,17 @@ views:
               target:
                 entity_id: script.morning
           - type: tile
+            entity: script.privacy_blinds
+            name: Privacy blinds
+            icon: mdi:blinds
+            color: blue
+            hide_state: true
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.privacy_blinds
+          - type: tile
             entity: script.good_night_blinds
             name: Nighttime blinds
             icon: mdi:weather-night
