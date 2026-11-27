@@ -6,11 +6,8 @@
       title: Person Spotted - Backyard
       message: Someone was seen on the backyard camera
       view_path: /
-  alias: Nest Backyard - Person Detected
+  alias: Frigate Backyard - Person Detected
   conditions:
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
-      }}'
   - condition: not
     conditions:
     - condition: state
@@ -29,10 +26,9 @@
   id: '1782569285600'
   mode: single
   triggers:
-  - event_data:
-      entity_id: event.backyard_motion
-    event_type: state_changed
-    trigger: event
+  - entity_id: binary_sensor.backyard_person_occupancy
+    to: 'on'
+    trigger: state
 - actions:
   - action: script.notify_security_snapshot
     data:
@@ -41,11 +37,8 @@
       title: Person Spotted - Driveway
       message: Someone was seen on the driveway camera
       view_path: /
-  alias: Nest Driveway - Person Detected
+  alias: Frigate Driveway - Person Detected
   conditions:
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
-      }}'
   - condition: not
     conditions:
     - condition: state
@@ -64,10 +57,9 @@
   id: '1782569302342'
   mode: single
   triggers:
-  - event_data:
-      entity_id: event.frontyard_driveway_motion
-    event_type: state_changed
-    trigger: event
+  - entity_id: binary_sensor.frontyard_driveway_person_occupancy
+    to: 'on'
+    trigger: state
 - actions:
   - action: script.notify_security_snapshot
     data:
@@ -76,11 +68,8 @@
       title: Person Spotted - Front Yard
       message: Someone was seen on the front yard camera
       view_path: /front-yard-view/default_view
-  alias: Nest Frontyard - Person Detected
+  alias: Frigate Frontyard - Person Detected
   conditions:
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
-      }}'
   - condition: not
     conditions:
     - condition: state
@@ -99,23 +88,19 @@
   id: '1782569371087'
   mode: single
   triggers:
-  - event_data:
-      entity_id: event.frontyard_motion
-    event_type: state_changed
-    trigger: event
+  - entity_id: binary_sensor.frontyard_person_occupancy
+    to: 'on'
+    trigger: state
 - actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.backyard_gate
+      camera_id: camera.backyard_bins
       snapshot_prefix: gate_bins
       title: Person Spotted - Gate & Bins
       message: Someone was seen at the gate & bins camera
       view_path: /
-  alias: Nest Gate & Bins - Person Detected
+  alias: Frigate Gate & Bins - Person Detected
   conditions:
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
-      }}'
   - condition: not
     conditions:
     - condition: state
@@ -134,10 +119,9 @@
   id: '1782569824728'
   mode: single
   triggers:
-  - event_data:
-      entity_id: event.backyard_gate_motion
-    event_type: state_changed
-    trigger: event
+  - entity_id: binary_sensor.backyard_bins_person_occupancy
+    to: 'on'
+    trigger: state
 - actions:
   - action: script.notify_security_snapshot
     data:
@@ -146,11 +130,8 @@
       title: Person Spotted - Patio
       message: Someone was seen on the patio camera
       view_path: /
-  alias: Nest Patio - Person Detected
+  alias: Frigate Patio - Person Detected
   conditions:
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.event_type == ''camera_person''
-      }}'
   - condition: not
     conditions:
     - condition: state
@@ -169,10 +150,9 @@
   id: '1782569851032'
   mode: single
   triggers:
-  - event_data:
-      entity_id: event.patio_motion
-    event_type: state_changed
-    trigger: event
+  - entity_id: binary_sensor.patio_person_occupancy
+    to: 'on'
+    trigger: state
 - actions:
   - action: light.toggle
     target:
