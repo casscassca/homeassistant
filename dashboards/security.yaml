@@ -1,19 +1,22 @@
 # Built-in cards only.
-# Main view: live Frigate cameras in a 2-column grid, each with a small
-# power toggle. The toggle calls script.camera_power_toggle, which saves a
-# still to /config/www/<camera>_last.jpg then turns the camera off, or
-# turns it back on. While off, the card shows that still via /local/.
+# Main view: two rows of three cameras that fill the view width
+# (sections max_columns 3, cards 4/12). Each card has a small power
+# icon on the right of the bottom bar (picture-glance entities).
+# The toggle calls script.camera_power_toggle, which saves a still to
+# /config/www/<camera>_last.jpg then turns the camera off, or turns it
+# back on. While off, the card shows that still via /local/.
 # Tapping a camera opens its subview. Subviews are not in the nav.
+# On a phone, subview sections stack to one column.
 
 views:
   - title: Security
     path: live
     icon: mdi:cctv
     type: sections
-    max_columns: 2
+    max_columns: 3
     sections:
       - type: grid
-        column_span: 2
+        column_span: 3
         cards:
           - type: conditional
             conditions:
@@ -26,7 +29,7 @@ views:
                     entity: camera.patio
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -61,7 +64,7 @@ views:
                         entity: camera.patio
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -93,7 +96,7 @@ views:
                     entity: camera.backyard
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -128,7 +131,7 @@ views:
                         entity: camera.backyard
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -160,7 +163,7 @@ views:
                     entity: camera.backyard_bins
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -195,7 +198,7 @@ views:
                         entity: camera.backyard_bins
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -227,7 +230,7 @@ views:
                     entity: camera.frontyard
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -262,7 +265,7 @@ views:
                         entity: camera.frontyard
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -294,7 +297,7 @@ views:
                     entity: camera.frontyard_driveway
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -329,7 +332,7 @@ views:
                         entity: camera.frontyard_driveway
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -361,7 +364,7 @@ views:
                     entity: camera.frontyard_doorbell
                     state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -396,7 +399,7 @@ views:
                         entity: camera.frontyard_doorbell
                         state: streaming
             grid_options:
-              columns: 6
+              columns: 4
               rows: auto
             card:
               type: picture-glance
@@ -493,20 +496,36 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.patio
+      - type: grid
+        column_span: 2
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.patio_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 12
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.patio_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.patio_person_occupancy
@@ -515,9 +534,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -527,7 +551,7 @@ views:
                 - image.patio_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
   - title: Backyard
     path: backyard
     icon: mdi:cctv
@@ -604,20 +628,36 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.backyard
+      - type: grid
+        column_span: 2
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.backyard_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 12
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.backyard_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.backyard_person_occupancy
@@ -626,9 +666,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -638,7 +683,7 @@ views:
                 - image.backyard_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
   - title: Bins
     path: bins
     icon: mdi:cctv
@@ -715,20 +760,36 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.backyard_bins
+      - type: grid
+        column_span: 2
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.backyard_bins_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 12
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.backyard_bins_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.backyard_bins_person_occupancy
@@ -737,9 +798,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -749,7 +815,7 @@ views:
                 - image.backyard_bins_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
   - title: Frontyard
     path: frontyard
     icon: mdi:cctv
@@ -826,34 +892,50 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.frontyard
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.frontyard_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 6
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.frontyard_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Controls
+            heading_style: subtitle
           - type: tile
             entity: light.frontyard_reolink_floodlight
             name: Floodlight
             icon: mdi:flood-light
-            grid_options:
-              columns: 6
-              rows: 1
           - type: tile
             entity: siren.frontyard_reolink_siren
             name: Siren
             icon: mdi:bullhorn
-            grid_options:
-              columns: 6
-              rows: 1
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.frontyard_person_occupancy
@@ -862,9 +944,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -874,7 +961,7 @@ views:
                 - image.frontyard_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
   - title: Driveway
     path: driveway
     icon: mdi:cctv
@@ -951,34 +1038,50 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.frontyard_driveway
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.frontyard_driveway_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 6
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.frontyard_driveway_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Controls
+            heading_style: subtitle
           - type: tile
             entity: light.frontyard_driveway_reolink_floodlight
             name: Floodlight
             icon: mdi:flood-light
-            grid_options:
-              columns: 6
-              rows: 1
           - type: tile
             entity: siren.frontyard_driveway_reolink_siren
             name: Siren
             icon: mdi:bullhorn
-            grid_options:
-              columns: 6
-              rows: 1
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.frontyard_driveway_person_occupancy
@@ -987,9 +1090,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -999,7 +1107,7 @@ views:
                 - image.frontyard_driveway_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
   - title: Doorbell
     path: doorbell
     icon: mdi:cctv
@@ -1076,27 +1184,46 @@ views:
                     perform_action: script.camera_power_toggle
                     data:
                       entity_id: camera.frontyard_doorbell
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Last person
+            heading_style: subtitle
           - type: picture-entity
             entity: image.frontyard_doorbell_person
-            name: Last person
-            show_name: true
-            show_state: true
+            show_name: false
+            show_state: false
             aspect_ratio: "16:9"
-            fit_mode: contain
+            fit_mode: cover
             tap_action:
               action: more-info
-            grid_options:
-              columns: 6
-              rows: auto
+          - type: markdown
+            content: >-
+              {% set s = states('image.frontyard_doorbell_person') %}
+              {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+              {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+              {% else %}
+              No person snapshot yet
+              {% endif %}
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Controls
+            heading_style: subtitle
           - type: tile
             entity: siren.front_door_siren
             name: Siren
             icon: mdi:bullhorn
-            grid_options:
-              columns: 6
-              rows: 1
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Person and motion
+            heading_style: subtitle
           - type: history-graph
-            title: Person and motion
             hours_to_show: 24
             entities:
               - entity: binary_sensor.frontyard_doorbell_person_occupancy
@@ -1105,9 +1232,14 @@ views:
                 name: Motion
             grid_options:
               columns: 12
-              rows: 4
+              rows: 8
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Activity
+            heading_style: subtitle
           - type: logbook
-            title: Activity
             hours_to_show: 24
             target:
               entity_id:
@@ -1117,4 +1249,4 @@ views:
                 - image.frontyard_doorbell_person
             grid_options:
               columns: 12
-              rows: 6
+              rows: 8
