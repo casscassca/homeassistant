@@ -257,8 +257,8 @@ privacy_blinds:
   alias: Privacy Blinds
   description: >-
     Set each room that has a Privacy scene to Privacy. Leaves the living
-    room alone. When guests are over, also leaves Cass's office and the
-    spare room alone.
+    room alone. When guests are over, also leaves all upstairs blinds
+    alone (Cass's office, the landing, and the spare room).
   icon: mdi:blinds
   sequence:
   - repeat:
@@ -268,8 +268,6 @@ privacy_blinds:
       - scene: scene.server_room_gateway_office_privacy
         wait: 12
       - scene: scene.server_room_gateway_main_bedroom_privacy
-        wait: 16
-      - scene: scene.server_room_gateway_media_privacy
         wait: 16
       sequence:
       - action: scene.turn_on
@@ -287,6 +285,8 @@ privacy_blinds:
   - repeat:
       for_each:
       - scene: scene.server_room_gateway_lounge_privacy
+        wait: 16
+      - scene: scene.server_room_gateway_media_privacy
         wait: 16
       - scene: scene.server_room_gateway_dads_room_privacy
         wait: 16
