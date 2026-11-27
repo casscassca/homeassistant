@@ -203,7 +203,7 @@
   actions:
   - action: script.notify_security_snapshot
     data:
-      camera_id: camera.frontyard_door_snapshots_fluent
+      camera_id: camera.frontyard_doorbell
       snapshot_prefix: front_door
       title: Front Door - {{ trigger.to_state.name if 'to_state' in trigger else 'Activity' }}
       message: Detected at the front door.

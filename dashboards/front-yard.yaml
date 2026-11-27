@@ -6,7 +6,7 @@ views:
       - type: vertical-stack
         cards:
           - type: picture-entity
-            entity: camera.frontyard_door_fluent
+            entity: camera.frontyard_doorbell
             name: Front Door
             camera_view: live
             show_state: true
