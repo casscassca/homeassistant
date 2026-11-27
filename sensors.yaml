@@ -1,0 +1,9 @@
+# Finley home-charging energy, from charger power only while Finley is home.
+# The source power sensor is 0 when the car is away, unknown, or not charging.
+- platform: integration
+  source: sensor.finley_home_charging_power
+  name: Finley home charging energy
+  unique_id: finley_home_charging_energy
+  unit_prefix: k
+  round: 5
+  method: trapezoidal

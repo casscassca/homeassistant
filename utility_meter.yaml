@@ -1,0 +1,11 @@
+finley_home_charging_energy_today:
+  source: sensor.finley_home_charging_energy
+  name: Finley home charging energy today
+  unique_id: finley_home_charging_energy_today
+  cycle: daily
+
+finley_home_charging_energy_this_month:
+  source: sensor.finley_home_charging_energy
+  name: Finley home charging energy this month
+  unique_id: finley_home_charging_energy_this_month
+  cycle: monthly
