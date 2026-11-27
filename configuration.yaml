@@ -46,6 +46,12 @@ frontend:
 
 lovelace:
   dashboards:
+    home-view:
+      mode: yaml
+      title: Home
+      icon: mdi:home
+      show_in_sidebar: true
+      filename: dashboards/home.yaml
     front-yard-view:
       mode: yaml
       title: Front Yard

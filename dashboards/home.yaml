@@ -1,0 +1,660 @@
+# Draft Home dashboard for review. Overview is unchanged.
+# Built-in cards only (sections, badges, heading, tile, thermostat,
+# weather-forecast, clock, map, picture-entity, area). No new HACS cards.
+# Desktop uses up to 3 section columns; phones stack to one column.
+# Camera snapshots (not live streams) open /security-view.
+# Energy tiles open the built-in Energy page at /energy.
+
+views:
+  - title: Home
+    path: home
+    icon: mdi:home
+    type: sections
+    max_columns: 3
+    dense_section_placement: true
+    header:
+      layout: start
+      badges_position: bottom
+      card:
+        type: markdown
+        text_only: true
+        content: "# Home"
+    badges:
+      - type: entity
+        entity: person.cass
+        name: Cass
+        show_name: true
+        color: state
+      - type: entity
+        entity: person.jason
+        name: Jason
+        show_name: true
+        color: state
+      - type: entity
+        entity: weather.forecast_home
+        name: Outside
+        show_name: true
+        show_state: true
+        color: state
+      - type: entity
+        entity: cover.garage_door
+        name: Garage
+        show_name: true
+        color: state
+      - type: entity
+        entity: binary_sensor.entry_front_contact
+        name: Front door
+        show_name: true
+        color: state
+    sections:
+      - type: grid
+        column_span: 3
+        visibility:
+          - condition: or
+            conditions:
+              - condition: state
+                entity: binary_sensor.entry_front_contact
+                state: "on"
+              - condition: state
+                entity: binary_sensor.patio_door_contact
+                state: "on"
+              - condition: state
+                entity: binary_sensor.garage_inside_contact
+                state: "on"
+              - condition: state
+                entity: binary_sensor.garage_outside_contact
+                state: "on"
+              - condition: state
+                entity: binary_sensor.jason_office_left_contact
+                state: "on"
+              - condition: state
+                entity: binary_sensor.jason_office_right_contact
+                state: "on"
+              - condition: state
+                entity: cover.garage_door
+                state_not: "closed"
+              - condition: state
+                entity: camera.backyard_bins
+                state: unavailable
+              - condition: state
+                entity: input_boolean.elawn_mow_due
+                state: "on"
+              - condition: numeric_state
+                entity: sensor.jason_s_iphone_battery_level
+                below: 21
+              - condition: numeric_state
+                entity: sensor.dining_room_feeder_wet_food_remaining_cleaning_days
+                below: 2
+              - condition: numeric_state
+                entity: sensor.dining_room_feeder_dry_food_desiccant_remaining_days
+                below: 5
+              - condition: state
+                entity: binary_sensor.dining_room_feeder_dry_food_food_status
+                state: "on"
+              - condition: state
+                entity: binary_sensor.dining_room_feeder_wet_food_food_status
+                state: "on"
+        cards:
+          - type: heading
+            heading: Needs attention
+            heading_style: title
+            icon: mdi:alert
+          - type: tile
+            entity: binary_sensor.entry_front_contact
+            name: Front door
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.entry_front_contact
+                state: "on"
+          - type: tile
+            entity: binary_sensor.patio_door_contact
+            name: Patio door
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.patio_door_contact
+                state: "on"
+          - type: tile
+            entity: binary_sensor.garage_inside_contact
+            name: Garage inside
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.garage_inside_contact
+                state: "on"
+          - type: tile
+            entity: binary_sensor.garage_outside_contact
+            name: Garage outside
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.garage_outside_contact
+                state: "on"
+          - type: tile
+            entity: binary_sensor.jason_office_left_contact
+            name: Jason's office left
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.jason_office_left_contact
+                state: "on"
+          - type: tile
+            entity: binary_sensor.jason_office_right_contact
+            name: Jason's office right
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.jason_office_right_contact
+                state: "on"
+          - type: tile
+            entity: cover.garage_door
+            name: Garage door
+            color: red
+            visibility:
+              - condition: state
+                entity: cover.garage_door
+                state_not: "closed"
+          - type: tile
+            entity: camera.backyard_bins
+            name: Bins camera offline
+            color: red
+            hide_state: false
+            tap_action:
+              action: navigate
+              navigation_path: /security-view
+            visibility:
+              - condition: state
+                entity: camera.backyard_bins
+                state: unavailable
+          - type: tile
+            entity: input_boolean.elawn_mow_due
+            name: Elawn mow due
+            color: amber
+            visibility:
+              - condition: state
+                entity: input_boolean.elawn_mow_due
+                state: "on"
+          - type: tile
+            entity: sensor.jason_s_iphone_battery_level
+            name: Jason's iPhone battery
+            color: red
+            visibility:
+              - condition: numeric_state
+                entity: sensor.jason_s_iphone_battery_level
+                below: 21
+          - type: tile
+            entity: sensor.dining_room_feeder_wet_food_remaining_cleaning_days
+            name: Wet food cleaning due
+            color: amber
+            visibility:
+              - condition: numeric_state
+                entity: sensor.dining_room_feeder_wet_food_remaining_cleaning_days
+                below: 2
+          - type: tile
+            entity: sensor.dining_room_feeder_dry_food_desiccant_remaining_days
+            name: Desiccant running low
+            color: amber
+            visibility:
+              - condition: numeric_state
+                entity: sensor.dining_room_feeder_dry_food_desiccant_remaining_days
+                below: 5
+          - type: tile
+            entity: binary_sensor.dining_room_feeder_dry_food_food_status
+            name: Dry food problem
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.dining_room_feeder_dry_food_food_status
+                state: "on"
+          - type: tile
+            entity: binary_sensor.dining_room_feeder_wet_food_food_status
+            name: Wet food problem
+            color: red
+            visibility:
+              - condition: state
+                entity: binary_sensor.dining_room_feeder_wet_food_food_status
+                state: "on"
+
+      - type: grid
+        column_span: 2
+        cards:
+          - type: heading
+            heading: Climate
+            heading_style: title
+            icon: mdi:thermostat
+            badges:
+              - type: entity
+                entity: weather.forecast_home
+                name: Outside
+                show_state: true
+                state_content: temperature
+          - type: clock
+            clock_style: digital
+            clock_size: small
+            time_format: "12"
+            time_zone: America/Chicago
+            no_background: true
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: weather-forecast
+            entity: weather.forecast_home
+            name: Outside
+            forecast_type: daily
+            show_current: true
+            show_forecast: true
+            secondary_info_attribute: humidity
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: thermostat
+            entity: climate.family_room
+            name: Living room
+            grid_options:
+              columns: 6
+              rows: 5
+          - type: thermostat
+            entity: climate.landing
+            name: Landing
+            grid_options:
+              columns: 6
+              rows: 5
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: People
+            heading_style: title
+            icon: mdi:account-group
+            badges:
+              - type: entity
+                entity: person.cass
+                name: Cass
+                show_state: true
+                state_content:
+                  - name
+                  - state
+                color: state
+              - type: entity
+                entity: person.jason
+                name: Jason
+                show_state: true
+                state_content:
+                  - name
+                  - state
+                color: state
+          - type: tile
+            entity: person.cass
+            name: Cass
+            color: state
+          - type: tile
+            entity: person.jason
+            name: Jason
+            color: state
+          - type: map
+            default_zoom: 12
+            hours_to_show: 16
+            entities:
+              - entity: person.cass
+                name: Cass
+              - entity: person.jason
+                name: Jason
+              - entity: zone.home
+                name: Wayne-o
+            grid_options:
+              columns: full
+              rows: 6
+
+      - type: grid
+        column_span: 3
+        cards:
+          - type: heading
+            heading: Quick controls
+            heading_style: title
+            icon: mdi:toggle-switch
+          - type: tile
+            entity: scene.smart_bridge_2_good_morning
+            name: Good morning
+            icon: mdi:weather-sunset-up
+            color: amber
+          - type: tile
+            entity: scene.smart_bridge_2_goodnight
+            name: Goodnight
+            icon: mdi:weather-night
+            color: indigo
+          - type: tile
+            entity: scene.smart_bridge_2_movie_time
+            name: Movie time
+            icon: mdi:movie-open
+            color: purple
+          - type: tile
+            entity: cover.garage_door
+            name: Garage
+            color: state
+          - type: tile
+            entity: switch.frontyard_foyer
+            name: Foyer
+            color: amber
+          - type: tile
+            entity: light.living_room_main
+            name: Living room
+            color: amber
+          - type: tile
+            entity: light.kitchen_main
+            name: Kitchen
+            color: amber
+          - type: tile
+            entity: light.kitchen_island
+            name: Island
+            color: amber
+          - type: tile
+            entity: switch.kitchen_under_cabinet
+            name: Under cabinet
+            color: amber
+          - type: tile
+            entity: light.dining_room_main
+            name: Dining
+            color: amber
+          - type: tile
+            entity: light.dining_room_chandelier
+            name: Chandelier
+            color: amber
+          - type: tile
+            entity: switch.patio_main
+            name: Patio
+            color: amber
+          - type: tile
+            entity: input_boolean.patio_privacy
+            name: Patio privacy
+            color: blue
+          - type: tile
+            entity: switch.garage_sconces
+            name: Garage sconces
+            color: amber
+          - type: tile
+            entity: light.bedroom_accent
+            name: Bedroom
+            color: amber
+          - type: tile
+            entity: light.cass_office_main
+            name: Cass's office
+            color: amber
+
+      - type: grid
+        column_span: 3
+        cards:
+          - type: heading
+            heading: Cameras
+            heading_style: title
+            icon: mdi:cctv
+            tap_action:
+              action: navigate
+              navigation_path: /security-view
+            badges:
+              - type: button
+                icon: mdi:arrow-right
+                text: Security
+                tap_action:
+                  action: navigate
+                  navigation_path: /security-view
+          - type: picture-entity
+            entity: camera.patio
+            name: Patio
+            show_state: false
+            show_name: true
+            camera_image: camera.patio
+            camera_view: auto
+            aspect_ratio: "16:9"
+            fit_mode: cover
+            tap_action:
+              action: navigate
+              navigation_path: /security-view/patio
+            grid_options:
+              columns: 12
+              rows: 3
+          - type: picture-entity
+            entity: camera.backyard
+            name: Backyard
+            show_state: false
+            show_name: true
+            camera_image: camera.backyard
+            camera_view: auto
+            aspect_ratio: "16:9"
+            fit_mode: cover
+            tap_action:
+              action: navigate
+              navigation_path: /security-view/backyard
+            grid_options:
+              columns: 12
+              rows: 3
+          - type: picture-entity
+            entity: camera.frontyard
+            name: Front yard
+            show_state: false
+            show_name: true
+            camera_image: camera.frontyard
+            camera_view: auto
+            aspect_ratio: "16:9"
+            fit_mode: cover
+            tap_action:
+              action: navigate
+              navigation_path: /security-view/frontyard
+            grid_options:
+              columns: 12
+              rows: 3
+          - type: picture-entity
+            entity: camera.frontyard_driveway
+            name: Driveway
+            show_state: false
+            show_name: true
+            camera_image: camera.frontyard_driveway
+            camera_view: auto
+            aspect_ratio: "16:9"
+            fit_mode: cover
+            tap_action:
+              action: navigate
+              navigation_path: /security-view/driveway
+            grid_options:
+              columns: 12
+              rows: 3
+          - type: picture-entity
+            entity: camera.frontyard_doorbell
+            name: Doorbell
+            show_state: false
+            show_name: true
+            camera_image: camera.frontyard_doorbell
+            camera_view: auto
+            aspect_ratio: "16:9"
+            fit_mode: cover
+            tap_action:
+              action: navigate
+              navigation_path: /security-view/doorbell
+            grid_options:
+              columns: 12
+              rows: 3
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Energy
+            heading_style: title
+            icon: mdi:lightning-bolt
+            tap_action:
+              action: navigate
+              navigation_path: /energy
+          - type: tile
+            entity: sensor.nikola_energy_today
+            name: House today
+            color: state
+            tap_action:
+              action: navigate
+              navigation_path: /energy
+          - type: tile
+            entity: sensor.indoor_panel_energy_today
+            name: Indoor panel
+            color: state
+            tap_action:
+              action: navigate
+              navigation_path: /energy
+          - type: tile
+            entity: sensor.nikola_power_minute_average
+            name: Power now
+            color: state
+            tap_action:
+              action: navigate
+              navigation_path: /energy
+          - type: tile
+            entity: sensor.austin_energy_rate
+            name: Rate
+            color: state
+            tap_action:
+              action: navigate
+              navigation_path: /energy
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Elawn
+            heading_style: title
+            icon: mdi:robot-mower
+            badges:
+              - type: entity
+                entity: sensor.navimow_battery
+                show_state: true
+          - type: tile
+            entity: lawn_mower.navimow_x450
+            name: Elawn
+            color: state
+          - type: tile
+            entity: sensor.navimow_battery
+            name: Battery
+            color: state
+          - type: tile
+            entity: input_boolean.elawn_mow_due
+            name: Mow due
+            color: state
+          - type: tile
+            entity: input_text.elawn_last_rain
+            name: Last rain
+          - type: tile
+            entity: binary_sensor.wayne_o_rain_sensor
+            name: Rain sensor
+            color: state
+
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Juicebox
+            heading_style: title
+            icon: mdi:cat
+            badges:
+              - type: entity
+                entity: sensor.dining_room_feeder_wet_food_remaining_cleaning_days
+                name: Clean in
+                show_state: true
+          - type: tile
+            entity: sensor.dining_room_feeder_dry_food_today_s_feeding_times
+            name: Meals today
+          - type: tile
+            entity: sensor.dining_room_feeder_dry_food_today_s_feeding_quantity_weight
+            name: Fed today
+          - type: tile
+            entity: sensor.dining_room_feeder_dry_food_next_feed_time
+            name: Next dry meal
+          - type: tile
+            entity: sensor.dining_room_feeder_wet_food_remaining_cleaning_days
+            name: Wet food clean in
+            color: state
+          - type: tile
+            entity: sensor.dining_room_feeder_dry_food_desiccant_remaining_days
+            name: Desiccant days
+            color: state
+          - type: tile
+            entity: binary_sensor.dining_room_feeder_dry_food_food_status
+            name: Dry food
+            color: state
+
+      - type: grid
+        column_span: 3
+        cards:
+          - type: heading
+            heading: Rooms
+            heading_style: title
+            icon: mdi:floor-plan
+          - type: area
+            area: living_room
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: kitchen
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: dining_room
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: bedroom
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: patio
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: garage
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: entry
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: landing
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: cass_office
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: jason_s_office
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: frontyard
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: area
+            area: backyard
+            display_type: compact
+            grid_options:
+              columns: 12
+              rows: 2
