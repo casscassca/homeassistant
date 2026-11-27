@@ -1,0 +1,8 @@
+/* Spacing for the Security panel dashboard (and its camera pages). */
+hui-panel-view {
+  padding: 16px;
+  box-sizing: border-box;
+}
+hui-panel-view hui-grid-card {
+  --grid-card-gap: 12px;
+}

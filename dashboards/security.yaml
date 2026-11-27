@@ -4,18 +4,21 @@
 # The built-in grid card keeps a fixed column count, so a second
 # 1-column grid is shown on phones via a screen media query.
 # Each cell is a live/still pair so a hidden conditional does not
-# leave a gap. The power icon sits on the right of the bottom bar
-# (picture-glance entities). The toggle calls script.camera_power_toggle,
-# which saves a still to /config/www/<camera>_last.jpg then turns the
-# camera off, or turns it back on. While off, the card shows that still
-# via /local/. Tapping a camera opens its subview. Subviews are also
-# panels so the live view is full width; their rows stack on a phone.
-# Subviews are not in the nav.
+# leave a gap. Camera cards use picture-elements so the power icon
+# sits at the far right of the bottom bar, with the name on the left.
+# The toggle calls script.camera_power_toggle, which saves a still to
+# /config/www/<camera>_last.jpg then turns the camera off, or turns it
+# back on. While off, the card shows that still via /local/.
+# Spacing around the grid comes from /local/security-spacing.css and
+# the security theme (--grid-card-gap). Tapping a camera opens its
+# subview. Subviews are also panels so the live view is full width;
+# their rows stack on a phone. Subviews are not in the nav.
 
 views:
   - title: Security
     path: live
     icon: mdi:cctv
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -40,25 +43,58 @@ views:
                             entity: camera.patio
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Patio
-                      entity: camera.patio
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.patio
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/patio
-                      entities:
-                        - entity: camera.patio
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/patio
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/patio.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.patio
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.patio
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -72,24 +108,56 @@ views:
                                 entity: camera.patio
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Patio
-                      entity: camera.patio
+                      type: picture-elements
                       image: /local/patio_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/patio
-                      entities:
-                        - entity: camera.patio
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/patio
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/patio.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.patio
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.patio
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -103,25 +171,58 @@ views:
                             entity: camera.backyard
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Backyard
-                      entity: camera.backyard
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.backyard
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/backyard
-                      entities:
-                        - entity: camera.backyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/backyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/backyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -135,24 +236,56 @@ views:
                                 entity: camera.backyard
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Backyard
-                      entity: camera.backyard
+                      type: picture-elements
                       image: /local/backyard_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/backyard
-                      entities:
-                        - entity: camera.backyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/backyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/backyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -166,25 +299,58 @@ views:
                             entity: camera.backyard_bins
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Bins
-                      entity: camera.backyard_bins
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.backyard_bins
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/bins
-                      entities:
-                        - entity: camera.backyard_bins
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/bins
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/bins.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard_bins
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard_bins
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -198,24 +364,56 @@ views:
                                 entity: camera.backyard_bins
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Bins
-                      entity: camera.backyard_bins
+                      type: picture-elements
                       image: /local/backyard_bins_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/bins
-                      entities:
-                        - entity: camera.backyard_bins
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/bins
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/bins.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard_bins
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard_bins
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -229,25 +427,58 @@ views:
                             entity: camera.frontyard
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Frontyard
-                      entity: camera.frontyard
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/frontyard
-                      entities:
-                        - entity: camera.frontyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/frontyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/frontyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -261,24 +492,56 @@ views:
                                 entity: camera.frontyard
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Frontyard
-                      entity: camera.frontyard
+                      type: picture-elements
                       image: /local/frontyard_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/frontyard
-                      entities:
-                        - entity: camera.frontyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/frontyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/frontyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -292,25 +555,58 @@ views:
                             entity: camera.frontyard_driveway
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Driveway
-                      entity: camera.frontyard_driveway
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard_driveway
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/driveway
-                      entities:
-                        - entity: camera.frontyard_driveway
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/driveway
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/driveway.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_driveway
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_driveway
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -324,24 +620,56 @@ views:
                                 entity: camera.frontyard_driveway
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Driveway
-                      entity: camera.frontyard_driveway
+                      type: picture-elements
                       image: /local/frontyard_driveway_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/driveway
-                      entities:
-                        - entity: camera.frontyard_driveway
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/driveway
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/driveway.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_driveway
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_driveway
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -355,25 +683,58 @@ views:
                             entity: camera.frontyard_doorbell
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard_doorbell
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/doorbell
-                      entities:
-                        - entity: camera.frontyard_doorbell
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/doorbell
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/doorbell.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_doorbell
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_doorbell
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -387,24 +748,56 @@ views:
                                 entity: camera.frontyard_doorbell
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      type: picture-elements
                       image: /local/frontyard_doorbell_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/doorbell
-                      entities:
-                        - entity: camera.frontyard_doorbell
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/doorbell
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/doorbell.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_doorbell
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_doorbell
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
           - type: grid
             columns: 1
             square: false
@@ -425,25 +818,58 @@ views:
                             entity: camera.patio
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Patio
-                      entity: camera.patio
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.patio
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/patio
-                      entities:
-                        - entity: camera.patio
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/patio
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/patio.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.patio
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.patio
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -457,24 +883,56 @@ views:
                                 entity: camera.patio
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Patio
-                      entity: camera.patio
+                      type: picture-elements
                       image: /local/patio_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/patio
-                      entities:
-                        - entity: camera.patio
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/patio
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/patio.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.patio
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.patio
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -488,25 +946,58 @@ views:
                             entity: camera.backyard
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Backyard
-                      entity: camera.backyard
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.backyard
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/backyard
-                      entities:
-                        - entity: camera.backyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/backyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/backyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -520,24 +1011,56 @@ views:
                                 entity: camera.backyard
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Backyard
-                      entity: camera.backyard
+                      type: picture-elements
                       image: /local/backyard_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/backyard
-                      entities:
-                        - entity: camera.backyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/backyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/backyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -551,25 +1074,58 @@ views:
                             entity: camera.backyard_bins
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Bins
-                      entity: camera.backyard_bins
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.backyard_bins
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/bins
-                      entities:
-                        - entity: camera.backyard_bins
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/bins
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/bins.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard_bins
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard_bins
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -583,24 +1139,56 @@ views:
                                 entity: camera.backyard_bins
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Bins
-                      entity: camera.backyard_bins
+                      type: picture-elements
                       image: /local/backyard_bins_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/bins
-                      entities:
-                        - entity: camera.backyard_bins
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/bins
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/bins.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.backyard_bins
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.backyard_bins
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -614,25 +1202,58 @@ views:
                             entity: camera.frontyard
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Frontyard
-                      entity: camera.frontyard
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/frontyard
-                      entities:
-                        - entity: camera.frontyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/frontyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/frontyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -646,24 +1267,56 @@ views:
                                 entity: camera.frontyard
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Frontyard
-                      entity: camera.frontyard
+                      type: picture-elements
                       image: /local/frontyard_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/frontyard
-                      entities:
-                        - entity: camera.frontyard
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/frontyard
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/frontyard.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -677,25 +1330,58 @@ views:
                             entity: camera.frontyard_driveway
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Driveway
-                      entity: camera.frontyard_driveway
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard_driveway
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/driveway
-                      entities:
-                        - entity: camera.frontyard_driveway
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/driveway
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/driveway.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_driveway
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_driveway
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -709,24 +1395,56 @@ views:
                                 entity: camera.frontyard_driveway
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Driveway
-                      entity: camera.frontyard_driveway
+                      type: picture-elements
                       image: /local/frontyard_driveway_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/driveway
-                      entities:
-                        - entity: camera.frontyard_driveway
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/driveway
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/driveway.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_driveway
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_driveway
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
               - type: vertical-stack
                 cards:
                   - type: conditional
@@ -740,25 +1458,58 @@ views:
                             entity: camera.frontyard_doorbell
                             state: streaming
                     card:
-                      type: picture-glance
-                      title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      type: picture-elements
+                      image: /local/security_16x9.png
                       camera_image: camera.frontyard_doorbell
                       camera_view: live
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/doorbell
-                      entities:
-                        - entity: camera.frontyard_doorbell
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/doorbell
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/doorbell.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_doorbell
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_doorbell
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
                   - type: conditional
                     conditions:
                       - condition: not
@@ -772,24 +1523,56 @@ views:
                                 entity: camera.frontyard_doorbell
                                 state: streaming
                     card:
-                      type: picture-glance
-                      title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      type: picture-elements
                       image: /local/frontyard_doorbell_last.jpg
                       aspect_ratio: "16:9"
-                      fit_mode: cover
-                      tap_action:
-                        action: navigate
-                        navigation_path: /security-view/doorbell
-                      entities:
-                        - entity: camera.frontyard_doorbell
+                      elements:
+                        - type: image
+                          image: /local/security_16x9.png
+                          tap_action:
+                            action: navigate
+                            navigation_path: /security-view/doorbell
+                          style:
+                            left: 0
+                            top: 0
+                            width: 100%
+                            height: 100%
+                            transform: none
+                        - type: image
+                          image: /local/security_16x9.png
+                          style:
+                            left: 0
+                            bottom: 0
+                            width: 100%
+                            height: 36px
+                            transform: none
+                            background-color: rgba(0, 0, 0, 0.45)
+                            pointer-events: none
+                        - type: image
+                          image: /local/labels/doorbell.svg
+                          style:
+                            left: 12px
+                            bottom: 4px
+                            width: 160px
+                            height: 28px
+                            transform: none
+                            pointer-events: none
+                        - type: icon
                           icon: mdi:power
-                          show_state: false
+                          entity: camera.frontyard_doorbell
                           tap_action:
                             action: perform-action
                             perform_action: script.camera_power_toggle
                             data:
                               entity_id: camera.frontyard_doorbell
+                          style:
+                            color: white
+                            right: 4px
+                            bottom: 2px
+                            transform: none
+                            z-index: 2
+                            background: none
+                            "--mdc-icon-size": 24px
   - title: Patio
     path: patio
     icon: mdi:cctv
