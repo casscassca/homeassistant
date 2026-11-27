@@ -12,10 +12,18 @@ views:
             name: Today
           - entity: sensor.nikola_energy_this_month
             name: This month
-          - entity: sensor.balance_energy_today
-            name: Unmonitored today
-          - entity: sensor.balance_energy_this_month
-            name: Unmonitored this month
+          - entity: sensor.indoor_panel_power
+            name: Indoor panel now
+          - entity: sensor.indoor_panel_energy_today
+            name: Indoor panel today
+          - entity: sensor.indoor_panel_energy_this_month
+            name: Indoor panel this month
+          - entity: sensor.finley_home_charging_power
+            name: Finley now
+          - entity: sensor.finley_home_charging_energy_today
+            name: Finley today
+          - entity: sensor.finley_home_charging_energy_this_month
+            name: Finley this month
       - type: entities
         title: Austin Energy
         entities:
@@ -50,6 +58,10 @@ views:
         entities:
           - entity: sensor.nikola_energy_today
             name: House
+          - entity: sensor.indoor_panel_energy_today
+            name: Indoor panel
+          - entity: sensor.finley_home_charging_energy_today
+            name: Finley
       - type: statistics-graph
         title: Monthly usage
         days_to_show: 730
@@ -59,6 +71,10 @@ views:
         entities:
           - entity: sensor.nikola_energy_this_month
             name: House
+          - entity: sensor.indoor_panel_energy_this_month
+            name: Indoor panel
+          - entity: sensor.finley_home_charging_energy_this_month
+            name: Finley
       - type: statistics-graph
         title: Power
         days_to_show: 2
@@ -68,3 +84,7 @@ views:
         entities:
           - entity: sensor.nikola_power_minute_average
             name: Power
+          - entity: sensor.indoor_panel_power
+            name: Indoor panel
+          - entity: sensor.finley_home_charging_power
+            name: Finley
