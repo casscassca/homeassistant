@@ -61,12 +61,12 @@ lovelace:
       icon: mdi:lightning-bolt
       show_in_sidebar: true
       filename: dashboards/energy.yaml
-    cameras-view:
+    security-view:
       mode: yaml
-      title: Cameras
+      title: Security
       icon: mdi:cctv
       show_in_sidebar: true
-      filename: dashboards/cameras.yaml
+      filename: dashboards/security.yaml
 
 automation: !include automations.yaml
 script: !include scripts.yaml

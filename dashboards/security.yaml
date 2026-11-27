@@ -3,7 +3,7 @@
 # power button. That needs Frigate connected to MQTT.
 
 views:
-  - title: Cameras
+  - title: Security
     path: live
     icon: mdi:cctv
     cards:
