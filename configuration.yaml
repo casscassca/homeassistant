@@ -59,7 +59,7 @@ lovelace:
       mode: yaml
       title: Energy
       icon: mdi:lightning-bolt
-      show_in_sidebar: true
+      show_in_sidebar: false
       filename: dashboards/energy.yaml
     security-view:
       mode: yaml
