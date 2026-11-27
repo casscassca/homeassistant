@@ -2,6 +2,7 @@
 homeassistant:
   external_url: "https://home.jassie.us"
   internal_url: !secret internal_url
+  radius: 100
 # Loads default set of integrations. Do not remove.
 default_config:
 
