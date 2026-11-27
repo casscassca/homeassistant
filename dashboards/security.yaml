@@ -1,202 +1,1120 @@
-# Built-in cards only. Per-camera On/Off uses camera.turn_on /
-# camera.turn_off, the Home Assistant equivalent of Frigate's camera
-# power button. That needs Frigate connected to MQTT.
+# Built-in cards only.
+# Main view: live Frigate cameras in a 2-column grid, each with a small
+# power toggle. The toggle calls script.camera_power_toggle, which saves a
+# still to /config/www/<camera>_last.jpg then turns the camera off, or
+# turns it back on. While off, the card shows that still via /local/.
+# Tapping a camera opens its subview. Subviews are not in the nav.
 
 views:
   - title: Security
     path: live
     icon: mdi:cctv
-    cards:
-      - type: heading
-        heading: Camera power
-        heading_style: title
-      - type: markdown
-        content: >
-          Off is the same as the power button in Frigate — it stops
-          decoding and recording for that camera. On turns it back on.
-          Bins stays offline until its cable is fixed.
-      - type: horizontal-stack
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
-          - type: tile
-            entity: camera.patio
-            name: Patio
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.patio
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.patio
-      - type: tile
-        entity: input_boolean.patio_privacy
-        name: Patio privacy
-        icon: mdi:eye-off
-        vertical: false
-      - type: horizontal-stack
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.patio
+                    state: recording
+                  - condition: state
+                    entity: camera.patio
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Patio
+              entity: camera.patio
+              camera_image: camera.patio
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/patio
+              entities:
+                - entity: camera.patio
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.patio
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.patio
+                        state: recording
+                      - condition: state
+                        entity: camera.patio
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Patio
+              entity: camera.patio
+              image: /local/patio_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/patio
+              entities:
+                - entity: camera.patio
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.patio
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.backyard
+                    state: recording
+                  - condition: state
+                    entity: camera.backyard
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Backyard
+              entity: camera.backyard
+              camera_image: camera.backyard
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/backyard
+              entities:
+                - entity: camera.backyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.backyard
+                        state: recording
+                      - condition: state
+                        entity: camera.backyard
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Backyard
+              entity: camera.backyard
+              image: /local/backyard_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/backyard
+              entities:
+                - entity: camera.backyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.backyard_bins
+                    state: recording
+                  - condition: state
+                    entity: camera.backyard_bins
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Bins
+              entity: camera.backyard_bins
+              camera_image: camera.backyard_bins
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/bins
+              entities:
+                - entity: camera.backyard_bins
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard_bins
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.backyard_bins
+                        state: recording
+                      - condition: state
+                        entity: camera.backyard_bins
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Bins
+              entity: camera.backyard_bins
+              image: /local/backyard_bins_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/bins
+              entities:
+                - entity: camera.backyard_bins
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard_bins
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Frontyard
+              entity: camera.frontyard
+              camera_image: camera.frontyard
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/frontyard
+              entities:
+                - entity: camera.frontyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Frontyard
+              entity: camera.frontyard
+              image: /local/frontyard_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/frontyard
+              entities:
+                - entity: camera.frontyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard_driveway
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard_driveway
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Driveway
+              entity: camera.frontyard_driveway
+              camera_image: camera.frontyard_driveway
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/driveway
+              entities:
+                - entity: camera.frontyard_driveway
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_driveway
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard_driveway
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard_driveway
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Driveway
+              entity: camera.frontyard_driveway
+              image: /local/frontyard_driveway_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/driveway
+              entities:
+                - entity: camera.frontyard_driveway
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_driveway
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard_doorbell
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard_doorbell
+                    state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Doorbell
+              entity: camera.frontyard_doorbell
+              camera_image: camera.frontyard_doorbell
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/doorbell
+              entities:
+                - entity: camera.frontyard_doorbell
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_doorbell
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard_doorbell
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard_doorbell
+                        state: streaming
+            grid_options:
+              columns: 6
+              rows: auto
+            card:
+              type: picture-glance
+              title: Doorbell
+              entity: camera.frontyard_doorbell
+              image: /local/frontyard_doorbell_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: navigate
+                navigation_path: /security-view/doorbell
+              entities:
+                - entity: camera.frontyard_doorbell
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_doorbell
+  - title: Patio
+    path: patio
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
-          - type: tile
-            entity: camera.backyard
-            name: Backyard
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.patio
+                    state: recording
+                  - condition: state
+                    entity: camera.patio
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Patio
+              entity: camera.patio
+              camera_image: camera.patio
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.patio
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.patio
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.patio
+                        state: recording
+                      - condition: state
+                        entity: camera.patio
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Patio
+              entity: camera.patio
+              image: /local/patio_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.patio
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.patio
+          - type: picture-entity
+            entity: image.patio_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
             tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.backyard
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.backyard
-      - type: horizontal-stack
+              action: more-info
+            grid_options:
+              columns: 12
+              rows: auto
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.patio_person_occupancy
+                name: Person
+              - entity: binary_sensor.patio_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.patio
+                - binary_sensor.patio_person_occupancy
+                - binary_sensor.patio_motion
+                - image.patio_person
+            grid_options:
+              columns: 12
+              rows: 6
+  - title: Backyard
+    path: backyard
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
-          - type: tile
-            entity: camera.backyard_bins
-            name: Bins
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.backyard
+                    state: recording
+                  - condition: state
+                    entity: camera.backyard
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Backyard
+              entity: camera.backyard
+              camera_image: camera.backyard
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.backyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.backyard
+                        state: recording
+                      - condition: state
+                        entity: camera.backyard
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Backyard
+              entity: camera.backyard
+              image: /local/backyard_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.backyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard
+          - type: picture-entity
+            entity: image.backyard_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
             tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.backyard_bins
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.backyard_bins
-      - type: horizontal-stack
+              action: more-info
+            grid_options:
+              columns: 12
+              rows: auto
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.backyard_person_occupancy
+                name: Person
+              - entity: binary_sensor.backyard_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.backyard
+                - binary_sensor.backyard_person_occupancy
+                - binary_sensor.backyard_motion
+                - image.backyard_person
+            grid_options:
+              columns: 12
+              rows: 6
+  - title: Bins
+    path: bins
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
-          - type: tile
-            entity: camera.frontyard
-            name: Frontyard
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.backyard_bins
+                    state: recording
+                  - condition: state
+                    entity: camera.backyard_bins
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Bins
+              entity: camera.backyard_bins
+              camera_image: camera.backyard_bins
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.backyard_bins
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard_bins
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.backyard_bins
+                        state: recording
+                      - condition: state
+                        entity: camera.backyard_bins
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Bins
+              entity: camera.backyard_bins
+              image: /local/backyard_bins_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.backyard_bins
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.backyard_bins
+          - type: picture-entity
+            entity: image.backyard_bins_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
             tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.frontyard
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.frontyard
-      - type: horizontal-stack
+              action: more-info
+            grid_options:
+              columns: 12
+              rows: auto
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.backyard_bins_person_occupancy
+                name: Person
+              - entity: binary_sensor.backyard_bins_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.backyard_bins
+                - binary_sensor.backyard_bins_person_occupancy
+                - binary_sensor.backyard_bins_motion
+                - image.backyard_bins_person
+            grid_options:
+              columns: 12
+              rows: 6
+  - title: Frontyard
+    path: frontyard
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Frontyard
+              entity: camera.frontyard
+              camera_image: camera.frontyard
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Frontyard
+              entity: camera.frontyard
+              image: /local/frontyard_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard
+          - type: picture-entity
+            entity: image.frontyard_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
+            tap_action:
+              action: more-info
+            grid_options:
+              columns: 6
+              rows: auto
           - type: tile
-            entity: camera.frontyard_driveway
-            name: Driveway
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.frontyard_driveway
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.frontyard_driveway
-      - type: horizontal-stack
+            entity: light.frontyard_reolink_floodlight
+            name: Floodlight
+            icon: mdi:flood-light
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: tile
+            entity: siren.frontyard_reolink_siren
+            name: Siren
+            icon: mdi:bullhorn
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.frontyard_person_occupancy
+                name: Person
+              - entity: binary_sensor.frontyard_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.frontyard
+                - binary_sensor.frontyard_person_occupancy
+                - binary_sensor.frontyard_motion
+                - image.frontyard_person
+            grid_options:
+              columns: 12
+              rows: 6
+  - title: Driveway
+    path: driveway
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
         cards:
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard_driveway
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard_driveway
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Driveway
+              entity: camera.frontyard_driveway
+              camera_image: camera.frontyard_driveway
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard_driveway
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_driveway
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard_driveway
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard_driveway
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Driveway
+              entity: camera.frontyard_driveway
+              image: /local/frontyard_driveway_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard_driveway
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_driveway
+          - type: picture-entity
+            entity: image.frontyard_driveway_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
+            tap_action:
+              action: more-info
+            grid_options:
+              columns: 6
+              rows: auto
           - type: tile
-            entity: camera.frontyard_doorbell
-            name: Doorbell
-            vertical: true
-          - type: button
-            name: Off
-            icon: mdi:cctv-off
+            entity: light.frontyard_driveway_reolink_floodlight
+            name: Floodlight
+            icon: mdi:flood-light
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: tile
+            entity: siren.frontyard_driveway_reolink_siren
+            name: Siren
+            icon: mdi:bullhorn
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.frontyard_driveway_person_occupancy
+                name: Person
+              - entity: binary_sensor.frontyard_driveway_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.frontyard_driveway
+                - binary_sensor.frontyard_driveway_person_occupancy
+                - binary_sensor.frontyard_driveway_motion
+                - image.frontyard_driveway_person
+            grid_options:
+              columns: 12
+              rows: 6
+  - title: Doorbell
+    path: doorbell
+    icon: mdi:cctv
+    subview: true
+    back_path: /security-view/live
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
+        cards:
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: camera.frontyard_doorbell
+                    state: recording
+                  - condition: state
+                    entity: camera.frontyard_doorbell
+                    state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Doorbell
+              entity: camera.frontyard_doorbell
+              camera_image: camera.frontyard_doorbell
+              camera_view: live
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard_doorbell
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_doorbell
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: or
+                    conditions:
+                      - condition: state
+                        entity: camera.frontyard_doorbell
+                        state: recording
+                      - condition: state
+                        entity: camera.frontyard_doorbell
+                        state: streaming
+            grid_options:
+              columns: 12
+              rows: auto
+            card:
+              type: picture-glance
+              title: Doorbell
+              entity: camera.frontyard_doorbell
+              image: /local/frontyard_doorbell_last.jpg
+              aspect_ratio: "16:9"
+              fit_mode: cover
+              tap_action:
+                action: more-info
+              entities:
+                - entity: camera.frontyard_doorbell
+                  icon: mdi:power
+                  show_state: false
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.camera_power_toggle
+                    data:
+                      entity_id: camera.frontyard_doorbell
+          - type: picture-entity
+            entity: image.frontyard_doorbell_person
+            name: Last person
+            show_name: true
+            show_state: true
+            aspect_ratio: "16:9"
+            fit_mode: contain
             tap_action:
-              action: perform-action
-              perform_action: camera.turn_off
-              target:
-                entity_id: camera.frontyard_doorbell
-          - type: button
-            name: On
-            icon: mdi:cctv
-            tap_action:
-              action: perform-action
-              perform_action: camera.turn_on
-              target:
-                entity_id: camera.frontyard_doorbell
-      - type: heading
-        heading: Live
-        heading_style: title
-      - type: conditional
-        conditions:
-          - condition: state
-            entity: input_boolean.patio_privacy
-            state: "off"
-        card:
-          type: picture-entity
-          entity: camera.patio
-          name: Patio
-          camera_view: live
-          show_state: false
-      - type: conditional
-        conditions:
-          - condition: state
-            entity: input_boolean.patio_privacy
-            state: "on"
-        card:
-          type: picture
-          image: /local/patio_frozen.jpg
-          alt: Patio (privacy still)
-      - type: picture-entity
-        entity: camera.backyard
-        name: Backyard
-        camera_view: live
-        show_state: false
-      - type: picture-entity
-        entity: camera.backyard_bins
-        name: Bins
-        camera_view: live
-        show_state: false
-      - type: picture-entity
-        entity: camera.frontyard
-        name: Frontyard
-        camera_view: live
-        show_state: false
-      - type: picture-entity
-        entity: camera.frontyard_driveway
-        name: Driveway
-        camera_view: live
-        show_state: false
-      - type: picture-entity
-        entity: camera.frontyard_doorbell
-        name: Doorbell
-        camera_view: live
-        show_state: false
+              action: more-info
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: tile
+            entity: siren.front_door_siren
+            name: Siren
+            icon: mdi:bullhorn
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: history-graph
+            title: Person and motion
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.frontyard_doorbell_person_occupancy
+                name: Person
+              - entity: binary_sensor.frontyard_doorbell_motion
+                name: Motion
+            grid_options:
+              columns: 12
+              rows: 4
+          - type: logbook
+            title: Activity
+            hours_to_show: 24
+            target:
+              entity_id:
+                - camera.frontyard_doorbell
+                - binary_sensor.frontyard_doorbell_person_occupancy
+                - binary_sensor.frontyard_doorbell_motion
+                - image.frontyard_doorbell_person
+            grid_options:
+              columns: 12
+              rows: 6
