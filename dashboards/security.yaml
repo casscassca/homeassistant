@@ -1364,46 +1364,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: patio
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.patio_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.patio_motion
-                        name: Motion
-                      - entity: binary_sensor.patio_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.patio_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.patio_motion
+                      name: Motion
+                    - entity: binary_sensor.patio_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.patio
-                        - binary_sensor.patio_person_occupancy
-                        - binary_sensor.patio_motion
-                        - binary_sensor.patio_all_occupancy
-                        - image.patio_person
-                        - image.patio_bicycle
-                        - image.patio_car
-                        - image.patio_motorcycle
-                        - image.patio_bus
-                        - image.patio_truck
-                        - image.patio_bird
-                        - image.patio_cat
-                        - image.patio_dog
-                        - image.patio_horse
-                        - image.patio_sheep
-                        - image.patio_cow
-                        - image.patio_elephant
-                        - image.patio_bear
-                        - image.patio_zebra
-                        - image.patio_giraffe
+                            - camera.patio
+                            - binary_sensor.patio_person_occupancy
+                            - binary_sensor.patio_motion
+                            - binary_sensor.patio_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1412,46 +1402,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: patio
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.patio_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.patio_motion
-                        name: Motion
-                      - entity: binary_sensor.patio_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.patio_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.patio_motion
+                      name: Motion
+                    - entity: binary_sensor.patio_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.patio
-                        - binary_sensor.patio_person_occupancy
-                        - binary_sensor.patio_motion
-                        - binary_sensor.patio_all_occupancy
-                        - image.patio_person
-                        - image.patio_bicycle
-                        - image.patio_car
-                        - image.patio_motorcycle
-                        - image.patio_bus
-                        - image.patio_truck
-                        - image.patio_bird
-                        - image.patio_cat
-                        - image.patio_dog
-                        - image.patio_horse
-                        - image.patio_sheep
-                        - image.patio_cow
-                        - image.patio_elephant
-                        - image.patio_bear
-                        - image.patio_zebra
-                        - image.patio_giraffe
+                            - camera.patio
+                            - binary_sensor.patio_person_occupancy
+                            - binary_sensor.patio_motion
+                            - binary_sensor.patio_all_occupancy
   - title: Backyard
     path: backyard
     icon: mdi:cctv
@@ -2021,46 +2001,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: backyard
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.backyard_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.backyard_motion
-                        name: Motion
-                      - entity: binary_sensor.backyard_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.backyard_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.backyard_motion
+                      name: Motion
+                    - entity: binary_sensor.backyard_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.backyard
-                        - binary_sensor.backyard_person_occupancy
-                        - binary_sensor.backyard_motion
-                        - binary_sensor.backyard_all_occupancy
-                        - image.backyard_person
-                        - image.backyard_bicycle
-                        - image.backyard_car
-                        - image.backyard_motorcycle
-                        - image.backyard_bus
-                        - image.backyard_truck
-                        - image.backyard_bird
-                        - image.backyard_cat
-                        - image.backyard_dog
-                        - image.backyard_horse
-                        - image.backyard_sheep
-                        - image.backyard_cow
-                        - image.backyard_elephant
-                        - image.backyard_bear
-                        - image.backyard_zebra
-                        - image.backyard_giraffe
+                            - camera.backyard
+                            - binary_sensor.backyard_person_occupancy
+                            - binary_sensor.backyard_motion
+                            - binary_sensor.backyard_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2069,46 +2039,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: backyard
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.backyard_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.backyard_motion
-                        name: Motion
-                      - entity: binary_sensor.backyard_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.backyard_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.backyard_motion
+                      name: Motion
+                    - entity: binary_sensor.backyard_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.backyard
-                        - binary_sensor.backyard_person_occupancy
-                        - binary_sensor.backyard_motion
-                        - binary_sensor.backyard_all_occupancy
-                        - image.backyard_person
-                        - image.backyard_bicycle
-                        - image.backyard_car
-                        - image.backyard_motorcycle
-                        - image.backyard_bus
-                        - image.backyard_truck
-                        - image.backyard_bird
-                        - image.backyard_cat
-                        - image.backyard_dog
-                        - image.backyard_horse
-                        - image.backyard_sheep
-                        - image.backyard_cow
-                        - image.backyard_elephant
-                        - image.backyard_bear
-                        - image.backyard_zebra
-                        - image.backyard_giraffe
+                            - camera.backyard
+                            - binary_sensor.backyard_person_occupancy
+                            - binary_sensor.backyard_motion
+                            - binary_sensor.backyard_all_occupancy
   - title: Bins
     path: bins
     icon: mdi:cctv
@@ -2678,46 +2638,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: bins
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.backyard_bins_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.backyard_bins_motion
-                        name: Motion
-                      - entity: binary_sensor.backyard_bins_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.backyard_bins_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.backyard_bins_motion
+                      name: Motion
+                    - entity: binary_sensor.backyard_bins_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.backyard_bins
-                        - binary_sensor.backyard_bins_person_occupancy
-                        - binary_sensor.backyard_bins_motion
-                        - binary_sensor.backyard_bins_all_occupancy
-                        - image.backyard_bins_person
-                        - image.backyard_bins_bicycle
-                        - image.backyard_bins_car
-                        - image.backyard_bins_motorcycle
-                        - image.backyard_bins_bus
-                        - image.backyard_bins_truck
-                        - image.backyard_bins_bird
-                        - image.backyard_bins_cat
-                        - image.backyard_bins_dog
-                        - image.backyard_bins_horse
-                        - image.backyard_bins_sheep
-                        - image.backyard_bins_cow
-                        - image.backyard_bins_elephant
-                        - image.backyard_bins_bear
-                        - image.backyard_bins_zebra
-                        - image.backyard_bins_giraffe
+                            - camera.backyard_bins
+                            - binary_sensor.backyard_bins_person_occupancy
+                            - binary_sensor.backyard_bins_motion
+                            - binary_sensor.backyard_bins_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2726,46 +2676,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: bins
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.backyard_bins_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.backyard_bins_motion
-                        name: Motion
-                      - entity: binary_sensor.backyard_bins_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.backyard_bins_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.backyard_bins_motion
+                      name: Motion
+                    - entity: binary_sensor.backyard_bins_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.backyard_bins
-                        - binary_sensor.backyard_bins_person_occupancy
-                        - binary_sensor.backyard_bins_motion
-                        - binary_sensor.backyard_bins_all_occupancy
-                        - image.backyard_bins_person
-                        - image.backyard_bins_bicycle
-                        - image.backyard_bins_car
-                        - image.backyard_bins_motorcycle
-                        - image.backyard_bins_bus
-                        - image.backyard_bins_truck
-                        - image.backyard_bins_bird
-                        - image.backyard_bins_cat
-                        - image.backyard_bins_dog
-                        - image.backyard_bins_horse
-                        - image.backyard_bins_sheep
-                        - image.backyard_bins_cow
-                        - image.backyard_bins_elephant
-                        - image.backyard_bins_bear
-                        - image.backyard_bins_zebra
-                        - image.backyard_bins_giraffe
+                            - camera.backyard_bins
+                            - binary_sensor.backyard_bins_person_occupancy
+                            - binary_sensor.backyard_bins_motion
+                            - binary_sensor.backyard_bins_all_occupancy
   - title: Frontyard
     path: frontyard
     icon: mdi:cctv
@@ -3361,46 +3301,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: frontyard
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard
-                        - binary_sensor.frontyard_person_occupancy
-                        - binary_sensor.frontyard_motion
-                        - binary_sensor.frontyard_all_occupancy
-                        - image.frontyard_person
-                        - image.frontyard_bicycle
-                        - image.frontyard_car
-                        - image.frontyard_motorcycle
-                        - image.frontyard_bus
-                        - image.frontyard_truck
-                        - image.frontyard_bird
-                        - image.frontyard_cat
-                        - image.frontyard_dog
-                        - image.frontyard_horse
-                        - image.frontyard_sheep
-                        - image.frontyard_cow
-                        - image.frontyard_elephant
-                        - image.frontyard_bear
-                        - image.frontyard_zebra
-                        - image.frontyard_giraffe
+                            - camera.frontyard
+                            - binary_sensor.frontyard_person_occupancy
+                            - binary_sensor.frontyard_motion
+                            - binary_sensor.frontyard_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -3409,46 +3339,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: frontyard
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard
-                        - binary_sensor.frontyard_person_occupancy
-                        - binary_sensor.frontyard_motion
-                        - binary_sensor.frontyard_all_occupancy
-                        - image.frontyard_person
-                        - image.frontyard_bicycle
-                        - image.frontyard_car
-                        - image.frontyard_motorcycle
-                        - image.frontyard_bus
-                        - image.frontyard_truck
-                        - image.frontyard_bird
-                        - image.frontyard_cat
-                        - image.frontyard_dog
-                        - image.frontyard_horse
-                        - image.frontyard_sheep
-                        - image.frontyard_cow
-                        - image.frontyard_elephant
-                        - image.frontyard_bear
-                        - image.frontyard_zebra
-                        - image.frontyard_giraffe
+                            - camera.frontyard
+                            - binary_sensor.frontyard_person_occupancy
+                            - binary_sensor.frontyard_motion
+                            - binary_sensor.frontyard_all_occupancy
   - title: Driveway
     path: driveway
     icon: mdi:cctv
@@ -4044,46 +3964,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: driveway
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_driveway_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_driveway_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_driveway_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_driveway_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_driveway_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_driveway_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard_driveway
-                        - binary_sensor.frontyard_driveway_person_occupancy
-                        - binary_sensor.frontyard_driveway_motion
-                        - binary_sensor.frontyard_driveway_all_occupancy
-                        - image.frontyard_driveway_person
-                        - image.frontyard_driveway_bicycle
-                        - image.frontyard_driveway_car
-                        - image.frontyard_driveway_motorcycle
-                        - image.frontyard_driveway_bus
-                        - image.frontyard_driveway_truck
-                        - image.frontyard_driveway_bird
-                        - image.frontyard_driveway_cat
-                        - image.frontyard_driveway_dog
-                        - image.frontyard_driveway_horse
-                        - image.frontyard_driveway_sheep
-                        - image.frontyard_driveway_cow
-                        - image.frontyard_driveway_elephant
-                        - image.frontyard_driveway_bear
-                        - image.frontyard_driveway_zebra
-                        - image.frontyard_driveway_giraffe
+                            - camera.frontyard_driveway
+                            - binary_sensor.frontyard_driveway_person_occupancy
+                            - binary_sensor.frontyard_driveway_motion
+                            - binary_sensor.frontyard_driveway_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -4092,46 +4002,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: driveway
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_driveway_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_driveway_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_driveway_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_driveway_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_driveway_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_driveway_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard_driveway
-                        - binary_sensor.frontyard_driveway_person_occupancy
-                        - binary_sensor.frontyard_driveway_motion
-                        - binary_sensor.frontyard_driveway_all_occupancy
-                        - image.frontyard_driveway_person
-                        - image.frontyard_driveway_bicycle
-                        - image.frontyard_driveway_car
-                        - image.frontyard_driveway_motorcycle
-                        - image.frontyard_driveway_bus
-                        - image.frontyard_driveway_truck
-                        - image.frontyard_driveway_bird
-                        - image.frontyard_driveway_cat
-                        - image.frontyard_driveway_dog
-                        - image.frontyard_driveway_horse
-                        - image.frontyard_driveway_sheep
-                        - image.frontyard_driveway_cow
-                        - image.frontyard_driveway_elephant
-                        - image.frontyard_driveway_bear
-                        - image.frontyard_driveway_zebra
-                        - image.frontyard_driveway_giraffe
+                            - camera.frontyard_driveway
+                            - binary_sensor.frontyard_driveway_person_occupancy
+                            - binary_sensor.frontyard_driveway_motion
+                            - binary_sensor.frontyard_driveway_all_occupancy
   - title: Doorbell
     path: doorbell
     icon: mdi:cctv
@@ -4719,46 +4619,36 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: doorbell
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_doorbell_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_doorbell_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_doorbell_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_doorbell_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_doorbell_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_doorbell_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard_doorbell
-                        - binary_sensor.frontyard_doorbell_person_occupancy
-                        - binary_sensor.frontyard_doorbell_motion
-                        - binary_sensor.frontyard_doorbell_all_occupancy
-                        - image.frontyard_doorbell_person
-                        - image.frontyard_doorbell_bicycle
-                        - image.frontyard_doorbell_car
-                        - image.frontyard_doorbell_motorcycle
-                        - image.frontyard_doorbell_bus
-                        - image.frontyard_doorbell_truck
-                        - image.frontyard_doorbell_bird
-                        - image.frontyard_doorbell_cat
-                        - image.frontyard_doorbell_dog
-                        - image.frontyard_doorbell_horse
-                        - image.frontyard_doorbell_sheep
-                        - image.frontyard_doorbell_cow
-                        - image.frontyard_doorbell_elephant
-                        - image.frontyard_doorbell_bear
-                        - image.frontyard_doorbell_zebra
-                        - image.frontyard_doorbell_giraffe
+                            - camera.frontyard_doorbell
+                            - binary_sensor.frontyard_doorbell_person_occupancy
+                            - binary_sensor.frontyard_doorbell_motion
+                            - binary_sensor.frontyard_doorbell_all_occupancy
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -4767,43 +4657,33 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
+                    heading: Recent events
+                    heading_style: subtitle
+                  - type: custom:security-events-card
+                    camera: doorbell
+                    limit: 8
+              - type: vertical-stack
+                cards:
+                  - type: heading
                     heading: Person and motion
                     heading_style: subtitle
                   - type: history-graph
-                    hours_to_show: 24
+                    hours_to_show: 6
                     entities:
-                      - entity: binary_sensor.frontyard_doorbell_person_occupancy
-                        name: Person
-                      - entity: binary_sensor.frontyard_doorbell_motion
-                        name: Motion
-                      - entity: binary_sensor.frontyard_doorbell_all_occupancy
-                        name: Any event
-              - type: vertical-stack
-                cards:
+                    - entity: binary_sensor.frontyard_doorbell_person_occupancy
+                      name: Person
+                    - entity: binary_sensor.frontyard_doorbell_motion
+                      name: Motion
+                    - entity: binary_sensor.frontyard_doorbell_all_occupancy
+                      name: Any event
                   - type: heading
                     heading: Activity
                     heading_style: subtitle
                   - type: logbook
-                    hours_to_show: 24
+                    hours_to_show: 4
                     target:
                       entity_id:
-                        - camera.frontyard_doorbell
-                        - binary_sensor.frontyard_doorbell_person_occupancy
-                        - binary_sensor.frontyard_doorbell_motion
-                        - binary_sensor.frontyard_doorbell_all_occupancy
-                        - image.frontyard_doorbell_person
-                        - image.frontyard_doorbell_bicycle
-                        - image.frontyard_doorbell_car
-                        - image.frontyard_doorbell_motorcycle
-                        - image.frontyard_doorbell_bus
-                        - image.frontyard_doorbell_truck
-                        - image.frontyard_doorbell_bird
-                        - image.frontyard_doorbell_cat
-                        - image.frontyard_doorbell_dog
-                        - image.frontyard_doorbell_horse
-                        - image.frontyard_doorbell_sheep
-                        - image.frontyard_doorbell_cow
-                        - image.frontyard_doorbell_elephant
-                        - image.frontyard_doorbell_bear
-                        - image.frontyard_doorbell_zebra
-                        - image.frontyard_doorbell_giraffe
+                            - camera.frontyard_doorbell
+                            - binary_sensor.frontyard_doorbell_person_occupancy
+                            - binary_sensor.frontyard_doorbell_motion
+                            - binary_sensor.frontyard_doorbell_all_occupancy
