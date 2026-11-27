@@ -23,6 +23,7 @@ tts/
 backup/
 backups/
 www/snapshots/
+www/*_last.jpg
 custom_components/
 
 # Local and editor files

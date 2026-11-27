@@ -158,3 +158,40 @@ notify_security_snapshot:
         url: https://home.jassie.us{{ view_path }}
       message: "{{ message }}"
       title: "{{ title }}"
+
+camera_power_toggle:
+  alias: Toggle camera power
+  description: >-
+    Save a still, then turn the Frigate camera off, or turn it back on.
+    Off is the same as the power button in Frigate.
+  icon: mdi:power
+  mode: parallel
+  max: 6
+  fields:
+    entity_id:
+      name: Camera
+      required: true
+      selector:
+        entity:
+          domain: camera
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: >-
+          {{ states(entity_id) in ['idle', 'unavailable', 'unknown', 'off'] }}
+      sequence:
+      - action: camera.turn_on
+        target:
+          entity_id: "{{ entity_id }}"
+    default:
+    - action: camera.snapshot
+      target:
+        entity_id: "{{ entity_id }}"
+      data:
+        filename: /config/www/{{ entity_id.split('.')[1] }}_last.jpg
+    - delay:
+        seconds: 1
+    - action: camera.turn_off
+      target:
+        entity_id: "{{ entity_id }}"
