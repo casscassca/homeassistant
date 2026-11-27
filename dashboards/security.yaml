@@ -896,6 +896,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.patio_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.patio_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.patio_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.patio_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -906,13 +990,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.patio_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.patio_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.patio_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.patio_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.patio_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.patio_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.patio_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.patio_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.patio_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.patio_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.patio_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -946,6 +1140,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.patio_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.patio_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.patio_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.patio_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -956,13 +1234,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.patio_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.patio_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.patio_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.patio_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.patio_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.patio_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.patio_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.patio_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.patio_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.patio_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.patio_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.patio_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1001,7 +1389,21 @@ views:
                         - binary_sensor.patio_motion
                         - binary_sensor.patio_all_occupancy
                         - image.patio_person
+                        - image.patio_bicycle
+                        - image.patio_car
+                        - image.patio_motorcycle
+                        - image.patio_bus
+                        - image.patio_truck
+                        - image.patio_bird
                         - image.patio_cat
+                        - image.patio_dog
+                        - image.patio_horse
+                        - image.patio_sheep
+                        - image.patio_cow
+                        - image.patio_elephant
+                        - image.patio_bear
+                        - image.patio_zebra
+                        - image.patio_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1035,7 +1437,21 @@ views:
                         - binary_sensor.patio_motion
                         - binary_sensor.patio_all_occupancy
                         - image.patio_person
+                        - image.patio_bicycle
+                        - image.patio_car
+                        - image.patio_motorcycle
+                        - image.patio_bus
+                        - image.patio_truck
+                        - image.patio_bird
                         - image.patio_cat
+                        - image.patio_dog
+                        - image.patio_horse
+                        - image.patio_sheep
+                        - image.patio_cow
+                        - image.patio_elephant
+                        - image.patio_bear
+                        - image.patio_zebra
+                        - image.patio_giraffe
   - title: Backyard
     path: backyard
     icon: mdi:cctv
@@ -1137,6 +1553,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.backyard_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1147,13 +1647,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.backyard_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.backyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.backyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.backyard_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1187,6 +1797,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.backyard_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1197,13 +1891,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.backyard_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.backyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.backyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.backyard_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1242,7 +2046,21 @@ views:
                         - binary_sensor.backyard_motion
                         - binary_sensor.backyard_all_occupancy
                         - image.backyard_person
+                        - image.backyard_bicycle
+                        - image.backyard_car
+                        - image.backyard_motorcycle
+                        - image.backyard_bus
+                        - image.backyard_truck
+                        - image.backyard_bird
                         - image.backyard_cat
+                        - image.backyard_dog
+                        - image.backyard_horse
+                        - image.backyard_sheep
+                        - image.backyard_cow
+                        - image.backyard_elephant
+                        - image.backyard_bear
+                        - image.backyard_zebra
+                        - image.backyard_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1276,7 +2094,21 @@ views:
                         - binary_sensor.backyard_motion
                         - binary_sensor.backyard_all_occupancy
                         - image.backyard_person
+                        - image.backyard_bicycle
+                        - image.backyard_car
+                        - image.backyard_motorcycle
+                        - image.backyard_bus
+                        - image.backyard_truck
+                        - image.backyard_bird
                         - image.backyard_cat
+                        - image.backyard_dog
+                        - image.backyard_horse
+                        - image.backyard_sheep
+                        - image.backyard_cow
+                        - image.backyard_elephant
+                        - image.backyard_bear
+                        - image.backyard_zebra
+                        - image.backyard_giraffe
   - title: Bins
     path: bins
     icon: mdi:cctv
@@ -1378,6 +2210,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.bins_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1388,13 +2304,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.bins_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.backyard_bins_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.backyard_bins_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.backyard_bins_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1428,6 +2454,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.bins_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1438,13 +2548,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.bins_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.backyard_bins_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.backyard_bins_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.backyard_bins_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1483,7 +2703,21 @@ views:
                         - binary_sensor.backyard_bins_motion
                         - binary_sensor.backyard_bins_all_occupancy
                         - image.backyard_bins_person
+                        - image.backyard_bins_bicycle
+                        - image.backyard_bins_car
+                        - image.backyard_bins_motorcycle
+                        - image.backyard_bins_bus
+                        - image.backyard_bins_truck
+                        - image.backyard_bins_bird
                         - image.backyard_bins_cat
+                        - image.backyard_bins_dog
+                        - image.backyard_bins_horse
+                        - image.backyard_bins_sheep
+                        - image.backyard_bins_cow
+                        - image.backyard_bins_elephant
+                        - image.backyard_bins_bear
+                        - image.backyard_bins_zebra
+                        - image.backyard_bins_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1517,7 +2751,21 @@ views:
                         - binary_sensor.backyard_bins_motion
                         - binary_sensor.backyard_bins_all_occupancy
                         - image.backyard_bins_person
+                        - image.backyard_bins_bicycle
+                        - image.backyard_bins_car
+                        - image.backyard_bins_motorcycle
+                        - image.backyard_bins_bus
+                        - image.backyard_bins_truck
+                        - image.backyard_bins_bird
                         - image.backyard_bins_cat
+                        - image.backyard_bins_dog
+                        - image.backyard_bins_horse
+                        - image.backyard_bins_sheep
+                        - image.backyard_bins_cow
+                        - image.backyard_bins_elephant
+                        - image.backyard_bins_bear
+                        - image.backyard_bins_zebra
+                        - image.backyard_bins_giraffe
   - title: Frontyard
     path: frontyard
     icon: mdi:cctv
@@ -1619,6 +2867,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.frontyard_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1629,13 +2961,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.frontyard_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1682,6 +3124,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.frontyard_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1692,13 +3218,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.frontyard_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1750,7 +3386,21 @@ views:
                         - binary_sensor.frontyard_motion
                         - binary_sensor.frontyard_all_occupancy
                         - image.frontyard_person
+                        - image.frontyard_bicycle
+                        - image.frontyard_car
+                        - image.frontyard_motorcycle
+                        - image.frontyard_bus
+                        - image.frontyard_truck
+                        - image.frontyard_bird
                         - image.frontyard_cat
+                        - image.frontyard_dog
+                        - image.frontyard_horse
+                        - image.frontyard_sheep
+                        - image.frontyard_cow
+                        - image.frontyard_elephant
+                        - image.frontyard_bear
+                        - image.frontyard_zebra
+                        - image.frontyard_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1784,7 +3434,21 @@ views:
                         - binary_sensor.frontyard_motion
                         - binary_sensor.frontyard_all_occupancy
                         - image.frontyard_person
+                        - image.frontyard_bicycle
+                        - image.frontyard_car
+                        - image.frontyard_motorcycle
+                        - image.frontyard_bus
+                        - image.frontyard_truck
+                        - image.frontyard_bird
                         - image.frontyard_cat
+                        - image.frontyard_dog
+                        - image.frontyard_horse
+                        - image.frontyard_sheep
+                        - image.frontyard_cow
+                        - image.frontyard_elephant
+                        - image.frontyard_bear
+                        - image.frontyard_zebra
+                        - image.frontyard_giraffe
   - title: Driveway
     path: driveway
     icon: mdi:cctv
@@ -1886,6 +3550,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.driveway_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1896,13 +3644,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.driveway_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_driveway_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_driveway_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_driveway_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -1949,6 +3807,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.driveway_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -1959,13 +3901,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.driveway_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_driveway_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_driveway_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_driveway_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -2017,7 +4069,21 @@ views:
                         - binary_sensor.frontyard_driveway_motion
                         - binary_sensor.frontyard_driveway_all_occupancy
                         - image.frontyard_driveway_person
+                        - image.frontyard_driveway_bicycle
+                        - image.frontyard_driveway_car
+                        - image.frontyard_driveway_motorcycle
+                        - image.frontyard_driveway_bus
+                        - image.frontyard_driveway_truck
+                        - image.frontyard_driveway_bird
                         - image.frontyard_driveway_cat
+                        - image.frontyard_driveway_dog
+                        - image.frontyard_driveway_horse
+                        - image.frontyard_driveway_sheep
+                        - image.frontyard_driveway_cow
+                        - image.frontyard_driveway_elephant
+                        - image.frontyard_driveway_bear
+                        - image.frontyard_driveway_zebra
+                        - image.frontyard_driveway_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2051,7 +4117,21 @@ views:
                         - binary_sensor.frontyard_driveway_motion
                         - binary_sensor.frontyard_driveway_all_occupancy
                         - image.frontyard_driveway_person
+                        - image.frontyard_driveway_bicycle
+                        - image.frontyard_driveway_car
+                        - image.frontyard_driveway_motorcycle
+                        - image.frontyard_driveway_bus
+                        - image.frontyard_driveway_truck
+                        - image.frontyard_driveway_bird
                         - image.frontyard_driveway_cat
+                        - image.frontyard_driveway_dog
+                        - image.frontyard_driveway_horse
+                        - image.frontyard_driveway_sheep
+                        - image.frontyard_driveway_cow
+                        - image.frontyard_driveway_elephant
+                        - image.frontyard_driveway_bear
+                        - image.frontyard_driveway_zebra
+                        - image.frontyard_driveway_giraffe
   - title: Doorbell
     path: doorbell
     icon: mdi:cctv
@@ -2153,6 +4233,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.doorbell_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -2163,13 +4327,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.doorbell_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_doorbell_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_doorbell_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_doorbell_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -2212,6 +4486,90 @@ views:
                     conditions:
                       - condition: state
                         entity: sensor.doorbell_last_event_type
+                        state: bicycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bicycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: car
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_car
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: motorcycle
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_motorcycle
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bus
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bus
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: truck
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_truck
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bird
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bird
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
                         state: cat
                     card:
                       type: picture-entity
@@ -2222,13 +4580,123 @@ views:
                       fit_mode: cover
                       tap_action:
                         action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: dog
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_dog
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: horse
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_horse
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: sheep
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_sheep
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: cow
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_cow
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: elephant
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_elephant
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: bear
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_bear
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: zebra
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_zebra
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: giraffe
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_giraffe
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
                       {% set typ = states('sensor.doorbell_last_event_type') %}
-                      {% if typ == 'person' %}
-                      {{ as_datetime(states('image.frontyard_doorbell_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                      {% elif typ == 'cat' %}
-                      {{ as_datetime(states('image.frontyard_doorbell_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% if typ not in ['none', 'unknown', 'unavailable', ''] %}
+                      {{ as_datetime(states('image.frontyard_doorbell_' ~ typ)).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
                       No event snapshot yet
                       {% endif %}
@@ -2276,7 +4744,21 @@ views:
                         - binary_sensor.frontyard_doorbell_motion
                         - binary_sensor.frontyard_doorbell_all_occupancy
                         - image.frontyard_doorbell_person
+                        - image.frontyard_doorbell_bicycle
+                        - image.frontyard_doorbell_car
+                        - image.frontyard_doorbell_motorcycle
+                        - image.frontyard_doorbell_bus
+                        - image.frontyard_doorbell_truck
+                        - image.frontyard_doorbell_bird
                         - image.frontyard_doorbell_cat
+                        - image.frontyard_doorbell_dog
+                        - image.frontyard_doorbell_horse
+                        - image.frontyard_doorbell_sheep
+                        - image.frontyard_doorbell_cow
+                        - image.frontyard_doorbell_elephant
+                        - image.frontyard_doorbell_bear
+                        - image.frontyard_doorbell_zebra
+                        - image.frontyard_doorbell_giraffe
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2310,4 +4792,18 @@ views:
                         - binary_sensor.frontyard_doorbell_motion
                         - binary_sensor.frontyard_doorbell_all_occupancy
                         - image.frontyard_doorbell_person
+                        - image.frontyard_doorbell_bicycle
+                        - image.frontyard_doorbell_car
+                        - image.frontyard_doorbell_motorcycle
+                        - image.frontyard_doorbell_bus
+                        - image.frontyard_doorbell_truck
+                        - image.frontyard_doorbell_bird
                         - image.frontyard_doorbell_cat
+                        - image.frontyard_doorbell_dog
+                        - image.frontyard_doorbell_horse
+                        - image.frontyard_doorbell_sheep
+                        - image.frontyard_doorbell_cow
+                        - image.frontyard_doorbell_elephant
+                        - image.frontyard_doorbell_bear
+                        - image.frontyard_doorbell_zebra
+                        - image.frontyard_doorbell_giraffe

@@ -42,7 +42,21 @@
     state: >
       {% set cands = {
         'person': states('image.patio_person'),
-        'cat': states('image.patio_cat')
+        'bicycle': states('image.patio_bicycle'),
+        'car': states('image.patio_car'),
+        'motorcycle': states('image.patio_motorcycle'),
+        'bus': states('image.patio_bus'),
+        'truck': states('image.patio_truck'),
+        'bird': states('image.patio_bird'),
+        'cat': states('image.patio_cat'),
+        'dog': states('image.patio_dog'),
+        'horse': states('image.patio_horse'),
+        'sheep': states('image.patio_sheep'),
+        'cow': states('image.patio_cow'),
+        'elephant': states('image.patio_elephant'),
+        'bear': states('image.patio_bear'),
+        'zebra': states('image.patio_zebra'),
+        'giraffe': states('image.patio_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
@@ -61,7 +75,21 @@
     state: >
       {% set cands = {
         'person': states('image.backyard_person'),
-        'cat': states('image.backyard_cat')
+        'bicycle': states('image.backyard_bicycle'),
+        'car': states('image.backyard_car'),
+        'motorcycle': states('image.backyard_motorcycle'),
+        'bus': states('image.backyard_bus'),
+        'truck': states('image.backyard_truck'),
+        'bird': states('image.backyard_bird'),
+        'cat': states('image.backyard_cat'),
+        'dog': states('image.backyard_dog'),
+        'horse': states('image.backyard_horse'),
+        'sheep': states('image.backyard_sheep'),
+        'cow': states('image.backyard_cow'),
+        'elephant': states('image.backyard_elephant'),
+        'bear': states('image.backyard_bear'),
+        'zebra': states('image.backyard_zebra'),
+        'giraffe': states('image.backyard_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
@@ -80,7 +108,21 @@
     state: >
       {% set cands = {
         'person': states('image.backyard_bins_person'),
-        'cat': states('image.backyard_bins_cat')
+        'bicycle': states('image.backyard_bins_bicycle'),
+        'car': states('image.backyard_bins_car'),
+        'motorcycle': states('image.backyard_bins_motorcycle'),
+        'bus': states('image.backyard_bins_bus'),
+        'truck': states('image.backyard_bins_truck'),
+        'bird': states('image.backyard_bins_bird'),
+        'cat': states('image.backyard_bins_cat'),
+        'dog': states('image.backyard_bins_dog'),
+        'horse': states('image.backyard_bins_horse'),
+        'sheep': states('image.backyard_bins_sheep'),
+        'cow': states('image.backyard_bins_cow'),
+        'elephant': states('image.backyard_bins_elephant'),
+        'bear': states('image.backyard_bins_bear'),
+        'zebra': states('image.backyard_bins_zebra'),
+        'giraffe': states('image.backyard_bins_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
@@ -99,7 +141,21 @@
     state: >
       {% set cands = {
         'person': states('image.frontyard_person'),
-        'cat': states('image.frontyard_cat')
+        'bicycle': states('image.frontyard_bicycle'),
+        'car': states('image.frontyard_car'),
+        'motorcycle': states('image.frontyard_motorcycle'),
+        'bus': states('image.frontyard_bus'),
+        'truck': states('image.frontyard_truck'),
+        'bird': states('image.frontyard_bird'),
+        'cat': states('image.frontyard_cat'),
+        'dog': states('image.frontyard_dog'),
+        'horse': states('image.frontyard_horse'),
+        'sheep': states('image.frontyard_sheep'),
+        'cow': states('image.frontyard_cow'),
+        'elephant': states('image.frontyard_elephant'),
+        'bear': states('image.frontyard_bear'),
+        'zebra': states('image.frontyard_zebra'),
+        'giraffe': states('image.frontyard_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
@@ -118,7 +174,21 @@
     state: >
       {% set cands = {
         'person': states('image.frontyard_driveway_person'),
-        'cat': states('image.frontyard_driveway_cat')
+        'bicycle': states('image.frontyard_driveway_bicycle'),
+        'car': states('image.frontyard_driveway_car'),
+        'motorcycle': states('image.frontyard_driveway_motorcycle'),
+        'bus': states('image.frontyard_driveway_bus'),
+        'truck': states('image.frontyard_driveway_truck'),
+        'bird': states('image.frontyard_driveway_bird'),
+        'cat': states('image.frontyard_driveway_cat'),
+        'dog': states('image.frontyard_driveway_dog'),
+        'horse': states('image.frontyard_driveway_horse'),
+        'sheep': states('image.frontyard_driveway_sheep'),
+        'cow': states('image.frontyard_driveway_cow'),
+        'elephant': states('image.frontyard_driveway_elephant'),
+        'bear': states('image.frontyard_driveway_bear'),
+        'zebra': states('image.frontyard_driveway_zebra'),
+        'giraffe': states('image.frontyard_driveway_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
@@ -137,7 +207,21 @@
     state: >
       {% set cands = {
         'person': states('image.frontyard_doorbell_person'),
-        'cat': states('image.frontyard_doorbell_cat')
+        'bicycle': states('image.frontyard_doorbell_bicycle'),
+        'car': states('image.frontyard_doorbell_car'),
+        'motorcycle': states('image.frontyard_doorbell_motorcycle'),
+        'bus': states('image.frontyard_doorbell_bus'),
+        'truck': states('image.frontyard_doorbell_truck'),
+        'bird': states('image.frontyard_doorbell_bird'),
+        'cat': states('image.frontyard_doorbell_cat'),
+        'dog': states('image.frontyard_doorbell_dog'),
+        'horse': states('image.frontyard_doorbell_horse'),
+        'sheep': states('image.frontyard_doorbell_sheep'),
+        'cow': states('image.frontyard_doorbell_cow'),
+        'elephant': states('image.frontyard_doorbell_elephant'),
+        'bear': states('image.frontyard_doorbell_bear'),
+        'zebra': states('image.frontyard_doorbell_zebra'),
+        'giraffe': states('image.frontyard_doorbell_giraffe')
       } %}
       {% set ns = namespace(best='none', t=none) %}
       {% for typ, s in cands.items() %}
