@@ -79,7 +79,7 @@ views:
                     card:
                       type: picture-glance
                       title: Patio
-                      entity: camera.patio
+                      entity: switch.patio_camera_power
                       image: /local/patio_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -142,7 +142,7 @@ views:
                     card:
                       type: picture-glance
                       title: Backyard
-                      entity: camera.backyard
+                      entity: switch.backyard_camera_power
                       image: /local/backyard_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -205,7 +205,7 @@ views:
                     card:
                       type: picture-glance
                       title: Bins
-                      entity: camera.backyard_bins
+                      entity: switch.bins_camera_power
                       image: /local/backyard_bins_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -268,7 +268,7 @@ views:
                     card:
                       type: picture-glance
                       title: Frontyard
-                      entity: camera.frontyard
+                      entity: switch.frontyard_camera_power
                       image: /local/frontyard_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -331,7 +331,7 @@ views:
                     card:
                       type: picture-glance
                       title: Driveway
-                      entity: camera.frontyard_driveway
+                      entity: switch.driveway_camera_power
                       image: /local/frontyard_driveway_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -394,7 +394,7 @@ views:
                     card:
                       type: picture-glance
                       title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      entity: switch.doorbell_camera_power
                       image: /local/frontyard_doorbell_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -464,7 +464,7 @@ views:
                     card:
                       type: picture-glance
                       title: Patio
-                      entity: camera.patio
+                      entity: switch.patio_camera_power
                       image: /local/patio_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -527,7 +527,7 @@ views:
                     card:
                       type: picture-glance
                       title: Backyard
-                      entity: camera.backyard
+                      entity: switch.backyard_camera_power
                       image: /local/backyard_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -590,7 +590,7 @@ views:
                     card:
                       type: picture-glance
                       title: Bins
-                      entity: camera.backyard_bins
+                      entity: switch.bins_camera_power
                       image: /local/backyard_bins_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -653,7 +653,7 @@ views:
                     card:
                       type: picture-glance
                       title: Frontyard
-                      entity: camera.frontyard
+                      entity: switch.frontyard_camera_power
                       image: /local/frontyard_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -716,7 +716,7 @@ views:
                     card:
                       type: picture-glance
                       title: Driveway
-                      entity: camera.frontyard_driveway
+                      entity: switch.driveway_camera_power
                       image: /local/frontyard_driveway_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -779,7 +779,7 @@ views:
                     card:
                       type: picture-glance
                       title: Doorbell
-                      entity: camera.frontyard_doorbell
+                      entity: switch.doorbell_camera_power
                       image: /local/frontyard_doorbell_last.jpg
                       aspect_ratio: "16:9"
                       fit_mode: cover
@@ -851,7 +851,7 @@ views:
                 card:
                   type: picture-glance
                   title: Patio
-                  entity: camera.patio
+                  entity: switch.patio_camera_power
                   image: /local/patio_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
@@ -1092,7 +1092,7 @@ views:
                 card:
                   type: picture-glance
                   title: Backyard
-                  entity: camera.backyard
+                  entity: switch.backyard_camera_power
                   image: /local/backyard_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
@@ -1333,7 +1333,7 @@ views:
                 card:
                   type: picture-glance
                   title: Bins
-                  entity: camera.backyard_bins
+                  entity: switch.bins_camera_power
                   image: /local/backyard_bins_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
@@ -1574,7 +1574,7 @@ views:
                 card:
                   type: picture-glance
                   title: Frontyard
-                  entity: camera.frontyard
+                  entity: switch.frontyard_camera_power
                   image: /local/frontyard_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
@@ -1841,7 +1841,7 @@ views:
                 card:
                   type: picture-glance
                   title: Driveway
-                  entity: camera.frontyard_driveway
+                  entity: switch.driveway_camera_power
                   image: /local/frontyard_driveway_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
@@ -2108,7 +2108,7 @@ views:
                 card:
                   type: picture-glance
                   title: Doorbell
-                  entity: camera.frontyard_doorbell
+                  entity: switch.doorbell_camera_power
                   image: /local/frontyard_doorbell_last.jpg
                   aspect_ratio: "16:9"
                   fit_mode: cover
