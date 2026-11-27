@@ -1,8 +1,10 @@
-/* Spacing for the Security panel dashboard (and its camera pages). */
+/* Spacing for the Security panel dashboard and its camera pages.
+   Padding is set on the panel-view host so it applies even though
+   inner cards live in shadow DOM. --grid-card-gap inherits into the
+   grid card. */
 hui-panel-view {
-  padding: 16px;
+  padding: 24px;
   box-sizing: border-box;
-}
-hui-panel-view hui-grid-card {
+  display: block;
   --grid-card-gap: 12px;
 }

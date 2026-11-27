@@ -150,3 +150,77 @@
         {% endif %}
       {% endfor %}
       {{ ns.best }}
+
+- switch:
+  - name: Patio camera power
+    unique_id: patio_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.patio') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.patio
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.patio
+  - name: Backyard camera power
+    unique_id: backyard_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.backyard') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.backyard
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.backyard
+  - name: Bins camera power
+    unique_id: bins_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.backyard_bins') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.backyard_bins
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.backyard_bins
+  - name: Frontyard camera power
+    unique_id: frontyard_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.frontyard') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard
+  - name: Driveway camera power
+    unique_id: driveway_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.frontyard_driveway') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard_driveway
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard_driveway
+  - name: Doorbell camera power
+    unique_id: doorbell_camera_power
+    icon: mdi:power
+    state: "{{ states('camera.frontyard_doorbell') in ['recording', 'streaming'] }}"
+    turn_on:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard_doorbell
+    turn_off:
+      action: script.camera_power_toggle
+      data:
+        entity_id: camera.frontyard_doorbell
