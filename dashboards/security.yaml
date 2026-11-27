@@ -1578,6 +1578,7 @@ views:
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -1595,24 +1596,57 @@ views:
                         entity: camera.patio
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Patio
-                  entity: camera.patio
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.patio
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.patio
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/patio.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.patio
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.patio
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -1626,44 +1660,155 @@ views:
                             entity: camera.patio
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Patio
-                  entity: camera.patio
+                  type: picture-elements
                   image: /local/patio_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.patio
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/patio.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.patio
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.patio
-          - type: vertical-stack
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
+          - type: grid
+            columns: 3
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(min-width: 800px)"
             cards:
-              - type: heading
-                heading: Last person
-                heading_style: subtitle
-              - type: picture-entity
-                entity: image.patio_person
-                show_name: false
-                show_state: false
-                aspect_ratio: "16:9"
-                fit_mode: cover
-                tap_action:
-                  action: more-info
-              - type: markdown
-                content: >-
-                  {% set s = states('image.patio_person') %}
-                  {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                  {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                  {% else %}
-                  No person snapshot yet
-                  {% endif %}
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.patio_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.patio_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.patio_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.patio_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.patio_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
+          - type: grid
+            columns: 2
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(max-width: 799px)"
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.patio_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.patio_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.patio_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.patio_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.patio_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.patio_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
           - type: grid
             columns: 2
             square: false
@@ -1683,6 +1828,8 @@ views:
                         name: Person
                       - entity: binary_sensor.patio_motion
                         name: Motion
+                      - entity: binary_sensor.patio_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -1695,7 +1842,9 @@ views:
                         - camera.patio
                         - binary_sensor.patio_person_occupancy
                         - binary_sensor.patio_motion
+                        - binary_sensor.patio_all_occupancy
                         - image.patio_person
+                        - image.patio_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1713,6 +1862,8 @@ views:
                         name: Person
                       - entity: binary_sensor.patio_motion
                         name: Motion
+                      - entity: binary_sensor.patio_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -1725,12 +1876,15 @@ views:
                         - camera.patio
                         - binary_sensor.patio_person_occupancy
                         - binary_sensor.patio_motion
+                        - binary_sensor.patio_all_occupancy
                         - image.patio_person
+                        - image.patio_cat
   - title: Backyard
     path: backyard
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -1748,24 +1902,57 @@ views:
                         entity: camera.backyard
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Backyard
-                  entity: camera.backyard
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.backyard
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.backyard
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/backyard.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.backyard
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.backyard
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -1779,44 +1966,155 @@ views:
                             entity: camera.backyard
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Backyard
-                  entity: camera.backyard
+                  type: picture-elements
                   image: /local/backyard_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.backyard
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/backyard.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.backyard
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.backyard
-          - type: vertical-stack
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
+          - type: grid
+            columns: 3
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(min-width: 800px)"
             cards:
-              - type: heading
-                heading: Last person
-                heading_style: subtitle
-              - type: picture-entity
-                entity: image.backyard_person
-                show_name: false
-                show_state: false
-                aspect_ratio: "16:9"
-                fit_mode: cover
-                tap_action:
-                  action: more-info
-              - type: markdown
-                content: >-
-                  {% set s = states('image.backyard_person') %}
-                  {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                  {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                  {% else %}
-                  No person snapshot yet
-                  {% endif %}
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.backyard_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.backyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.backyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
+          - type: grid
+            columns: 2
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(max-width: 799px)"
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.backyard_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.backyard_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.backyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.backyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
           - type: grid
             columns: 2
             square: false
@@ -1836,6 +2134,8 @@ views:
                         name: Person
                       - entity: binary_sensor.backyard_motion
                         name: Motion
+                      - entity: binary_sensor.backyard_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -1848,7 +2148,9 @@ views:
                         - camera.backyard
                         - binary_sensor.backyard_person_occupancy
                         - binary_sensor.backyard_motion
+                        - binary_sensor.backyard_all_occupancy
                         - image.backyard_person
+                        - image.backyard_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -1866,6 +2168,8 @@ views:
                         name: Person
                       - entity: binary_sensor.backyard_motion
                         name: Motion
+                      - entity: binary_sensor.backyard_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -1878,12 +2182,15 @@ views:
                         - camera.backyard
                         - binary_sensor.backyard_person_occupancy
                         - binary_sensor.backyard_motion
+                        - binary_sensor.backyard_all_occupancy
                         - image.backyard_person
+                        - image.backyard_cat
   - title: Bins
     path: bins
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -1901,24 +2208,57 @@ views:
                         entity: camera.backyard_bins
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Bins
-                  entity: camera.backyard_bins
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.backyard_bins
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.backyard_bins
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/bins.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.backyard_bins
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.backyard_bins
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -1932,44 +2272,155 @@ views:
                             entity: camera.backyard_bins
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Bins
-                  entity: camera.backyard_bins
+                  type: picture-elements
                   image: /local/backyard_bins_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.backyard_bins
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/bins.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.backyard_bins
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.backyard_bins
-          - type: vertical-stack
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
+          - type: grid
+            columns: 3
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(min-width: 800px)"
             cards:
-              - type: heading
-                heading: Last person
-                heading_style: subtitle
-              - type: picture-entity
-                entity: image.backyard_bins_person
-                show_name: false
-                show_state: false
-                aspect_ratio: "16:9"
-                fit_mode: cover
-                tap_action:
-                  action: more-info
-              - type: markdown
-                content: >-
-                  {% set s = states('image.backyard_bins_person') %}
-                  {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                  {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
-                  {% else %}
-                  No person snapshot yet
-                  {% endif %}
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.bins_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.backyard_bins_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.backyard_bins_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
+          - type: grid
+            columns: 2
+            square: false
+            visibility:
+              - condition: screen
+                media_query: "(max-width: 799px)"
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: heading
+                    heading: Last event
+                    heading_style: subtitle
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.bins_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.backyard_bins_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: markdown
+                    content: >-
+                      {% set typ = states('sensor.bins_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.backyard_bins_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.backyard_bins_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% else %}
+                      No event snapshot yet
+                      {% endif %}
           - type: grid
             columns: 2
             square: false
@@ -1989,6 +2440,8 @@ views:
                         name: Person
                       - entity: binary_sensor.backyard_bins_motion
                         name: Motion
+                      - entity: binary_sensor.backyard_bins_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2001,7 +2454,9 @@ views:
                         - camera.backyard_bins
                         - binary_sensor.backyard_bins_person_occupancy
                         - binary_sensor.backyard_bins_motion
+                        - binary_sensor.backyard_bins_all_occupancy
                         - image.backyard_bins_person
+                        - image.backyard_bins_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2019,6 +2474,8 @@ views:
                         name: Person
                       - entity: binary_sensor.backyard_bins_motion
                         name: Motion
+                      - entity: binary_sensor.backyard_bins_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2031,12 +2488,15 @@ views:
                         - camera.backyard_bins
                         - binary_sensor.backyard_bins_person_occupancy
                         - binary_sensor.backyard_bins_motion
+                        - binary_sensor.backyard_bins_all_occupancy
                         - image.backyard_bins_person
+                        - image.backyard_bins_cat
   - title: Frontyard
     path: frontyard
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -2054,24 +2514,57 @@ views:
                         entity: camera.frontyard
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Frontyard
-                  entity: camera.frontyard
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.frontyard
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/frontyard.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -2085,25 +2578,57 @@ views:
                             entity: camera.frontyard
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Frontyard
-                  entity: camera.frontyard
+                  type: picture-elements
                   image: /local/frontyard_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/frontyard.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
           - type: grid
-            columns: 2
+            columns: 3
             square: false
             visibility:
               - condition: screen
@@ -2112,23 +2637,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.frontyard_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2143,7 +2690,9 @@ views:
                     entity: siren.frontyard_reolink_siren
                     name: Siren
                     icon: mdi:bullhorn
-          - type: vertical-stack
+          - type: grid
+            columns: 2
+            square: false
             visibility:
               - condition: screen
                 media_query: "(max-width: 799px)"
@@ -2151,23 +2700,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.frontyard_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.frontyard_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2201,6 +2772,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2213,7 +2786,9 @@ views:
                         - camera.frontyard
                         - binary_sensor.frontyard_person_occupancy
                         - binary_sensor.frontyard_motion
+                        - binary_sensor.frontyard_all_occupancy
                         - image.frontyard_person
+                        - image.frontyard_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2231,6 +2806,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2243,12 +2820,15 @@ views:
                         - camera.frontyard
                         - binary_sensor.frontyard_person_occupancy
                         - binary_sensor.frontyard_motion
+                        - binary_sensor.frontyard_all_occupancy
                         - image.frontyard_person
+                        - image.frontyard_cat
   - title: Driveway
     path: driveway
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -2266,24 +2846,57 @@ views:
                         entity: camera.frontyard_driveway
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Driveway
-                  entity: camera.frontyard_driveway
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.frontyard_driveway
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard_driveway
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/driveway.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard_driveway
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard_driveway
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -2297,25 +2910,57 @@ views:
                             entity: camera.frontyard_driveway
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Driveway
-                  entity: camera.frontyard_driveway
+                  type: picture-elements
                   image: /local/frontyard_driveway_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard_driveway
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/driveway.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard_driveway
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard_driveway
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
           - type: grid
-            columns: 2
+            columns: 3
             square: false
             visibility:
               - condition: screen
@@ -2324,23 +2969,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_driveway_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_driveway_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.driveway_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_driveway_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_driveway_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2355,7 +3022,9 @@ views:
                     entity: siren.frontyard_driveway_reolink_siren
                     name: Siren
                     icon: mdi:bullhorn
-          - type: vertical-stack
+          - type: grid
+            columns: 2
+            square: false
             visibility:
               - condition: screen
                 media_query: "(max-width: 799px)"
@@ -2363,23 +3032,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_driveway_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.driveway_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_driveway_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_driveway_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.driveway_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_driveway_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_driveway_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2413,6 +3104,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_driveway_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_driveway_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2425,7 +3118,9 @@ views:
                         - camera.frontyard_driveway
                         - binary_sensor.frontyard_driveway_person_occupancy
                         - binary_sensor.frontyard_driveway_motion
+                        - binary_sensor.frontyard_driveway_all_occupancy
                         - image.frontyard_driveway_person
+                        - image.frontyard_driveway_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2443,6 +3138,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_driveway_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_driveway_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2455,12 +3152,15 @@ views:
                         - camera.frontyard_driveway
                         - binary_sensor.frontyard_driveway_person_occupancy
                         - binary_sensor.frontyard_driveway_motion
+                        - binary_sensor.frontyard_driveway_all_occupancy
                         - image.frontyard_driveway_person
+                        - image.frontyard_driveway_cat
   - title: Doorbell
     path: doorbell
     icon: mdi:cctv
     subview: true
     back_path: /security-view/live
+    theme: security
     type: panel
     cards:
       - type: vertical-stack
@@ -2478,24 +3178,57 @@ views:
                         entity: camera.frontyard_doorbell
                         state: streaming
                 card:
-                  type: picture-glance
-                  title: Doorbell
-                  entity: camera.frontyard_doorbell
+                  type: picture-elements
+                  image: /local/security_16x9.png
                   camera_image: camera.frontyard_doorbell
                   camera_view: live
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard_doorbell
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/doorbell.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard_doorbell
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard_doorbell
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
               - type: conditional
                 conditions:
                   - condition: not
@@ -2509,25 +3242,57 @@ views:
                             entity: camera.frontyard_doorbell
                             state: streaming
                 card:
-                  type: picture-glance
-                  title: Doorbell
-                  entity: camera.frontyard_doorbell
+                  type: picture-elements
                   image: /local/frontyard_doorbell_last.jpg
                   aspect_ratio: "16:9"
-                  fit_mode: cover
-                  tap_action:
-                    action: more-info
-                  entities:
-                    - entity: camera.frontyard_doorbell
+                  elements:
+                    - type: image
+                      image: /local/security_16x9.png
+                      tap_action:
+                        action: more-info
+                      style:
+                        left: 0
+                        top: 0
+                        width: 100%
+                        height: 100%
+                        transform: none
+                    - type: image
+                      image: /local/security_16x9.png
+                      style:
+                        left: 0
+                        bottom: 0
+                        width: 100%
+                        height: 36px
+                        transform: none
+                        background-color: rgba(0, 0, 0, 0.45)
+                        pointer-events: none
+                    - type: image
+                      image: /local/labels/doorbell.svg
+                      style:
+                        left: 12px
+                        bottom: 4px
+                        width: 160px
+                        height: 28px
+                        transform: none
+                        pointer-events: none
+                    - type: icon
                       icon: mdi:power
-                      show_state: false
+                      entity: camera.frontyard_doorbell
                       tap_action:
                         action: perform-action
                         perform_action: script.camera_power_toggle
                         data:
                           entity_id: camera.frontyard_doorbell
+                      style:
+                        color: white
+                        right: 4px
+                        bottom: 2px
+                        transform: none
+                        z-index: 2
+                        background: none
+                        "--mdc-icon-size": 24px
           - type: grid
-            columns: 2
+            columns: 3
             square: false
             visibility:
               - condition: screen
@@ -2536,23 +3301,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_doorbell_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_doorbell_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.doorbell_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_doorbell_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_doorbell_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2563,7 +3350,9 @@ views:
                     entity: siren.front_door_siren
                     name: Siren
                     icon: mdi:bullhorn
-          - type: vertical-stack
+          - type: grid
+            columns: 2
+            square: false
             visibility:
               - condition: screen
                 media_query: "(max-width: 799px)"
@@ -2571,23 +3360,45 @@ views:
               - type: vertical-stack
                 cards:
                   - type: heading
-                    heading: Last person
+                    heading: Last event
                     heading_style: subtitle
-                  - type: picture-entity
-                    entity: image.frontyard_doorbell_person
-                    show_name: false
-                    show_state: false
-                    aspect_ratio: "16:9"
-                    fit_mode: cover
-                    tap_action:
-                      action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: person
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_person
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: sensor.doorbell_last_event_type
+                        state: cat
+                    card:
+                      type: picture-entity
+                      entity: image.frontyard_doorbell_cat
+                      show_name: false
+                      show_state: false
+                      aspect_ratio: "16:9"
+                      fit_mode: cover
+                      tap_action:
+                        action: more-info
                   - type: markdown
                     content: >-
-                      {% set s = states('image.frontyard_doorbell_person') %}
-                      {% if s not in ['unknown', 'unavailable', 'none', ''] %}
-                      {{ as_datetime(s).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% set typ = states('sensor.doorbell_last_event_type') %}
+                      {% if typ == 'person' %}
+                      {{ as_datetime(states('image.frontyard_doorbell_person')).strftime('%-b %-d, %Y at %-I:%M %p') }}
+                      {% elif typ == 'cat' %}
+                      {{ as_datetime(states('image.frontyard_doorbell_cat')).strftime('%-b %-d, %Y at %-I:%M %p') }}
                       {% else %}
-                      No person snapshot yet
+                      No event snapshot yet
                       {% endif %}
               - type: vertical-stack
                 cards:
@@ -2617,6 +3428,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_doorbell_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_doorbell_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2629,7 +3442,9 @@ views:
                         - camera.frontyard_doorbell
                         - binary_sensor.frontyard_doorbell_person_occupancy
                         - binary_sensor.frontyard_doorbell_motion
+                        - binary_sensor.frontyard_doorbell_all_occupancy
                         - image.frontyard_doorbell_person
+                        - image.frontyard_doorbell_cat
           - type: vertical-stack
             visibility:
               - condition: screen
@@ -2647,6 +3462,8 @@ views:
                         name: Person
                       - entity: binary_sensor.frontyard_doorbell_motion
                         name: Motion
+                      - entity: binary_sensor.frontyard_doorbell_all_occupancy
+                        name: Any event
               - type: vertical-stack
                 cards:
                   - type: heading
@@ -2659,4 +3476,6 @@ views:
                         - camera.frontyard_doorbell
                         - binary_sensor.frontyard_doorbell_person_occupancy
                         - binary_sensor.frontyard_doorbell_motion
+                        - binary_sensor.frontyard_doorbell_all_occupancy
                         - image.frontyard_doorbell_person
+                        - image.frontyard_doorbell_cat

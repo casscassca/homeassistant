@@ -35,3 +35,118 @@
       {% else %}
         4
       {% endif %}
+
+  - name: Patio last event type
+    unique_id: patio_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.patio_person'),
+        'cat': states('image.patio_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
+  - name: Backyard last event type
+    unique_id: backyard_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.backyard_person'),
+        'cat': states('image.backyard_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
+  - name: Bins last event type
+    unique_id: bins_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.backyard_bins_person'),
+        'cat': states('image.backyard_bins_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
+  - name: Frontyard last event type
+    unique_id: frontyard_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.frontyard_person'),
+        'cat': states('image.frontyard_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
+  - name: Driveway last event type
+    unique_id: driveway_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.frontyard_driveway_person'),
+        'cat': states('image.frontyard_driveway_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
+  - name: Doorbell last event type
+    unique_id: doorbell_last_event_type
+    icon: mdi:image-frame
+    state: >
+      {% set cands = {
+        'person': states('image.frontyard_doorbell_person'),
+        'cat': states('image.frontyard_doorbell_cat')
+      } %}
+      {% set ns = namespace(best='none', t=none) %}
+      {% for typ, s in cands.items() %}
+        {% if s not in ['unknown', 'unavailable', 'none', ''] %}
+          {% set t = as_datetime(s) %}
+          {% if t and (ns.t is none or t > ns.t) %}
+            {% set ns.best = typ %}
+            {% set ns.t = t %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ ns.best }}
