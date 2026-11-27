@@ -195,3 +195,57 @@ camera_power_toggle:
     - action: camera.turn_off
       target:
         entity_id: "{{ entity_id }}"
+
+all_lights_off:
+  alias: All lights off
+  description: >-
+    Turn off household lights and lighting switches, leaving camera
+    floodlights, status LEDs, and the garage-door opener light alone.
+  icon: mdi:lightbulb-off
+  mode: single
+  sequence:
+  - action: light.turn_off
+    target:
+      entity_id: >
+        {{ states.light
+           | rejectattr('attributes.entity_id', 'defined')
+           | map(attribute='entity_id')
+           | reject('search', 'reolink|ratgdo')
+           | list }}
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.frontyard_foyer
+        - switch.kitchen_under_cabinet
+        - switch.patio_main
+        - switch.garage_sconces
+
+bedtime_lights:
+  alias: Bedtime lights
+  description: >-
+    Turn off household lights and lighting switches except the bedroom
+    nightstand lamps. Leaves camera floodlights, status LEDs, and the
+    garage-door opener light alone.
+  icon: mdi:bed
+  mode: single
+  sequence:
+  - variables:
+      keep_on:
+        - light.bedroom_cass_bedside
+        - light.bedroom_jason_bedside
+  - action: light.turn_off
+    target:
+      entity_id: >
+        {{ states.light
+           | rejectattr('attributes.entity_id', 'defined')
+           | map(attribute='entity_id')
+           | reject('in', keep_on)
+           | reject('search', 'reolink|ratgdo')
+           | list }}
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.frontyard_foyer
+        - switch.kitchen_under_cabinet
+        - switch.patio_main
+        - switch.garage_sconces

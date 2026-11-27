@@ -217,6 +217,60 @@ views:
                 state: "on"
 
       - type: grid
+        column_span: 3
+        cards:
+          - type: heading
+            heading: Quick actions
+            heading_style: title
+            icon: mdi:gesture-tap-button
+          - type: tile
+            entity: script.morning
+            name: Morning blinds
+            icon: mdi:weather-sunset-up
+            color: amber
+            hide_state: true
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.morning
+          - type: tile
+            entity: script.good_night_blinds
+            name: Nighttime blinds
+            icon: mdi:weather-night
+            color: indigo
+            hide_state: true
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.good_night_blinds
+          - type: tile
+            entity: script.all_lights_off
+            name: All lights off
+            icon: mdi:lightbulb-off
+            color: red
+            hide_state: true
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.all_lights_off
+              confirmation:
+                text: Turn off all lights?
+          - type: tile
+            entity: script.bedtime_lights
+            name: Bedtime lights
+            icon: mdi:bed
+            color: deep-purple
+            hide_state: true
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.bedtime_lights
+
+      - type: grid
         column_span: 2
         cards:
           - type: heading
